@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SimWorldBuilder – galeria</title>
+<meta name="description" content="Zdjęcia i filmy z SimWorldBuilder: edytor świata 3D budowanego z danych GIS dla symulatorów jazdy (C++/Vulkan).">
+<meta name="theme-color" content="#1c1d1f">
+<meta property="og:title" content="SimWorldBuilder – galeria">
+<meta property="og:description" content="Wirtualny Kraków z danych GIS: zdjęcia i filmy z edytora i symulatora.">
+<meta property="og:image" content="https://ryczek02.github.io/simworldbuilder/img/og.jpg">
+<meta property="og:url" content="https://ryczek02.github.io/simworldbuilder/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #1c1d1f;
+    --card: #26272a;
+    --line: #34363a;
+    --text: #e8e8e6;
+    --muted: #a3a5a8;
+    --accent: #e0a640;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 16px 48px; }
+  header { padding: 40px 0 8px; }
+  h1 { font-size: clamp(28px, 6vw, 44px); line-height: 1.1; margin: 0 0 10px; letter-spacing: -0.02em; }
+  h1 span { color: var(--accent); }
+  .lead { color: var(--muted); max-width: 680px; margin: 0; }
+  h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); margin: 40px 0 14px; font-weight: 600;
+  }
+  .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .grid { grid-template-columns: 1fr 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden; margin: 0;
+  }
+  .card .media {
+    display: block; width: 100%; aspect-ratio: 16 / 9; position: relative;
+    background: #111; border: 0; padding: 0; cursor: pointer; overflow: hidden;
+  }
+  .card .media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .card .media:hover img { transform: scale(1.03); }
+  .card iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .play {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: linear-gradient(transparent 50%, rgba(0,0,0,.45));
+  }
+  .play::before {
+    content: ""; width: 68px; height: 68px; border-radius: 50%;
+    background: rgba(0,0,0,.6) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M8 5v14l11-7z'/%3E%3C/svg%3E") 55% 50% / 34px no-repeat;
+    border: 2px solid rgba(255,255,255,.85);
+  }
+  figcaption { padding: 14px 16px 16px; }
+  figcaption b { display: block; font-size: 17px; margin-bottom: 4px; }
+  figcaption p { margin: 0; color: var(--muted); font-size: 15px; }
+  .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span {
+    font-size: 12px; color: var(--text); background: #303236;
+    border-radius: 999px; padding: 2px 10px;
+  }
+  footer { color: var(--muted); font-size: 14px; margin-top: 48px; border-top: 1px solid var(--line); padding-top: 16px; }
+  a { color: var(--accent); }
+
+  dialog {
+    padding: 0; border: 0; background: rgba(10,10,11,.96); color: var(--text);
+    width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0;
+  }
+  dialog::backdrop { background: rgba(0,0,0,.8); }
+  .lb { height: 100%; display: flex; flex-direction: column; }
+  .lb-img { flex: 1; min-height: 0; display: grid; place-items: center; padding: 8px; }
+  .lb-img img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
+  .lb-cap { padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); max-width: 900px; margin: 0 auto; width: 100%; }
+  .lb-cap b { display: block; }
+  .lb-cap p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+  .lb button {
+    position: absolute; background: rgba(40,41,44,.85); color: #fff; border: 0;
+    width: 44px; height: 44px; border-radius: 50%; font-size: 22px; cursor: pointer;
+  }
+  .lb .close { top: calc(10px + env(safe-area-inset-top)); right: 10px; }
+  .lb .prev, .lb .next { top: 45%; }
+  .lb .prev { left: 10px; }
+  .lb .next { right: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Sim<span>World</span>Builder</h1>
+    <p class="lead">Edytor świata 3D budowanego z otwartych danych GIS (ulice, budynki, zieleń, linie komunikacji) dla symulatorów jazdy. Napisany w C++ i Vulkan. Pierwszym miastem jest Kraków, w którym powstaje wirtualny symulator autobusu.</p>
+  </header>
+
+  <h2>Filmy</h2>
+  <div class="grid">
+    <figure class="card">
+      <button class="media yt" data-id="XyNWUznb220" aria-label="Odtwórz film: Linia 152">
+        <img src="https://i.ytimg.com/vi/XyNWUznb220/hqdefault.jpg" alt="" loading="lazy">
+        <span class="play"></span>
+      </button>
+      <figcaption>
+        <b>#2 – Linia 152 (Pilotów – Przegon)</b>
+        <p>Przejazd prawdziwą trasą autobusu linii 152. Trasa i przystanki są pobierane automatycznie z OpenStreetMap, a świat wokół niej powstaje w pasie 500 m.</p>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media yt" data-id="BOipO_DCcDw" aria-label="Odtwórz film: Błonia / Al. 3 Maja">
+        <img src="https://i.ytimg.com/vi/BOipO_DCcDw/hqdefault.jpg" alt="" loading="lazy">
+        <span class="play"></span>
+      </button>
+      <figcaption>
+        <b>#1 – testowy przejazd Błonia / Al. 3 Maja</b>
+        <p>Pierwszy testowy przejazd autobusem po wirtualnym Krakowie, wzdłuż Błoń.</p>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2>Zdjęcia</h2>
+  <div class="grid" id="photos">
+    <figure class="card">
+      <button class="media" data-full="img/edytor-full.webp"><img src="img/edytor.webp" alt="Okno edytora SimWorldBuilder z widokiem okolic Ronda Mogilskiego" loading="lazy"></button>
+      <figcaption>
+        <b>Edytor</b>
+        <p>Główne okno programu. Po lewej lista linii komunikacji w okolicy pobrana z OpenStreetMap, na środku trasa linii 152 z przystankami (na niebiesko) nad Rondem Mogilskim i Unity Tower. Po prawej hierarchia obiektów świata (drogi, tory, przystanki, sygnalizacja), na dole katalog zasobów: nawierzchnie, pasy ruchu, krawężniki, oznakowanie poziome.</p>
+        <div class="tags"><span>edytor</span><span>linie z OSM</span><span>Vulkan</span></div>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media" data-full="img/hotel_polonia-full.webp"><img src="img/hotel_polonia.webp" alt="Model Hotelu Polonia w edytorze" loading="lazy"></button>
+      <figcaption>
+        <b>Hotel Polonia</b>
+        <p>Budynek odtworzony proceduralnie: bryła z danych LOD2, a okna, gzymsy, dach i szyld złożone z gotowych elementów na podstawie zdjęć ulicy. Dla porównania sąsiednie kamienice po prawej to jeszcze surowa siatka z fotogrametrii. Na ziemi tory tramwajowe, wiaty przystanków i trasa linii.</p>
+        <div class="tags"><span>budynki proceduralne</span><span>LOD2</span></div>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media" data-full="img/kazimierz-full.webp"><img src="img/kazimierz.webp" alt="Widok z lotu ptaka na Kazimierz i Plac Nowy" loading="lazy"></button>
+      <figcaption>
+        <b>Kazimierz z lotu ptaka</b>
+        <p>Cała dzielnica w jednym widoku: Plac Nowy z Okrąglakiem na środku, u góry kościół Bożego Ciała. Budynki to siatki 3D z fotogrametrii, drogi, chodniki i drzewa są generowane z danych wektorowych.</p>
+        <div class="tags"><span>fotogrametria</span><span>streaming</span></div>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media" data-full="img/alfa_romeo-full.webp"><img src="img/alfa_romeo.webp" alt="Samochód na moście nad Wisłą, w tle Wawel" loading="lazy"></button>
+      <figcaption>
+        <b>Most nad Wisłą i Wawel</b>
+        <p>Świat wyeksportowany do Assetto Corsa. Przejazd mostem o zachodzie słońca, w tle Wzgórze Wawelskie z katedrą i zamkiem.</p>
+        <div class="tags"><span>eksport do Assetto Corsa</span></div>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media" data-full="img/centrum_kongresowe_ice-full.webp"><img src="img/centrum_kongresowe_ice.webp" alt="Widok z kokpitu na drogę do Centrum Kongresowego ICE" loading="lazy"></button>
+      <figcaption>
+        <b>W stronę Centrum Kongresowego ICE</b>
+        <p>Widok z kokpitu w Assetto Corsa: przejazd mostem z siecią trakcyjną tramwaju. Na końcu ulicy budynek ICE Kraków.</p>
+        <div class="tags"><span>eksport do Assetto Corsa</span><span>sieć trakcyjna</span></div>
+      </figcaption>
+    </figure>
+    <figure class="card">
+      <button class="media" data-full="img/mogilskie-full.webp"><img src="img/mogilskie.webp" alt="Widok z wnętrza auta na szeroką ulicę i Unity Tower" loading="lazy"></button>
+      <figcaption>
+        <b>Dojazd do Ronda Mogilskiego</b>
+        <p>Szeroka arteria z pasami zieleni i torowiskiem, w oddali Unity Tower. Widok zza kierownicy w Assetto Corsa.</p>
+        <div class="tags"><span>eksport do Assetto Corsa</span></div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <footer>
+    Łukasz Ryczko · <a href="https://lukaszryczko.pl/">lukaszryczko.pl</a> · <a href="https://www.youtube.com/watch?v=XyNWUznb220">YouTube</a>
+  </footer>
+</main>
+
+<dialog id="lb" aria-label="Podgląd zdjęcia">
+  <div class="lb">
+    <div class="lb-img"><img alt=""></div>
+    <div class="lb-cap"><b></b><p></p></div>
+    <button class="close" aria-label="Zamknij">✕</button>
+    <button class="prev" aria-label="Poprzednie">‹</button>
+    <button class="next" aria-label="Następne">›</button>
+  </div>
+</dialog>
+
+<script>
+  // Filmy: miniatura, a odtwarzacz YouTube ładuje się dopiero po kliknięciu.
+  document.querySelectorAll('.yt').forEach(b => b.addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.id + '?autoplay=1&rel=0';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    const box = document.createElement('div');
+    box.className = 'media';
+    box.appendChild(f);
+    b.replaceWith(box);
+  }));
+
+  // Zdjęcia: pełny ekran, strzałki, przesuwanie palcem.
+  const items = [...document.querySelectorAll('#photos .card')];
+  const lb = document.getElementById('lb');
+  const lbImg = lb.querySelector('.lb-img img');
+  let cur = 0;
+  function show(i) {
+    cur = (i + items.length) % items.length;
+    const c = items[cur];
+    lbImg.src = c.querySelector('[data-full]').dataset.full;
+    lbImg.alt = c.querySelector('img').alt;
+    lb.querySelector('.lb-cap b').textContent = c.querySelector('figcaption b').textContent;
+    lb.querySelector('.lb-cap p').textContent = c.querySelector('figcaption p').textContent;
+  }
+  items.forEach((c, i) => c.querySelector('[data-full]').addEventListener('click', () => { show(i); lb.showModal(); }));
+  lb.querySelector('.close').onclick = () => lb.close();
+  lb.querySelector('.prev').onclick = () => show(cur - 1);
+  lb.querySelector('.next').onclick = () => show(cur + 1);
+  lb.querySelector('.lb-img').addEventListener('click', e => { if (e.target !== lbImg) lb.close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.open) return;
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  let x0 = null;
+  lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+</script>
+</body>
+</html>
