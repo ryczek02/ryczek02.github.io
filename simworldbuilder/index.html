@@ -57,14 +57,8 @@
     background: rgba(0,0,0,.6) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M8 5v14l11-7z'/%3E%3C/svg%3E") 55% 50% / 34px no-repeat;
     border: 2px solid rgba(255,255,255,.85);
   }
-  figcaption { padding: 14px 16px 16px; }
-  figcaption b { display: block; font-size: 17px; margin-bottom: 4px; }
-  figcaption p { margin: 0; color: var(--muted); font-size: 15px; }
-  .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
-  .tags span {
-    font-size: 12px; color: var(--text); background: #303236;
-    border-radius: 999px; padding: 2px 10px;
-  }
+  figcaption { padding: 12px 16px 14px; }
+  figcaption b { display: block; font-size: 17px; }
   footer { color: var(--muted); font-size: 14px; margin-top: 48px; border-top: 1px solid var(--line); padding-top: 16px; }
   a { color: var(--accent); }
 
@@ -78,7 +72,6 @@
   .lb-img img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
   .lb-cap { padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); max-width: 900px; margin: 0 auto; width: 100%; }
   .lb-cap b { display: block; }
-  .lb-cap p { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
   .lb button {
     position: absolute; background: rgba(40,41,44,.85); color: #fff; border: 0;
     width: 44px; height: 44px; border-radius: 50%; font-size: 22px; cursor: pointer;
@@ -101,7 +94,6 @@
       </button>
       <figcaption>
         <b>#2 – Linia 152 (Pilotów – Przegon)</b>
-        <p>Przejazd prawdziwą trasą autobusu linii 152. Trasa i przystanki są pobierane automatycznie z OpenStreetMap, a świat wokół niej powstaje w pasie 500 m.</p>
       </figcaption>
     </figure>
     <figure class="card">
@@ -111,7 +103,6 @@
       </button>
       <figcaption>
         <b>#1 – testowy przejazd Błonia / Al. 3 Maja</b>
-        <p>Pierwszy testowy przejazd autobusem po wirtualnym Krakowie, wzdłuż Błoń.</p>
       </figcaption>
     </figure>
   </div>
@@ -122,48 +113,36 @@
       <button class="media" data-full="img/edytor-full.webp"><img src="img/edytor.webp" alt="Okno edytora SimWorldBuilder z widokiem okolic Ronda Mogilskiego" loading="lazy"></button>
       <figcaption>
         <b>Edytor</b>
-        <p>Główne okno programu. Po lewej lista linii komunikacji w okolicy pobrana z OpenStreetMap, na środku trasa linii 152 z przystankami (na niebiesko) nad Rondem Mogilskim i Unity Tower. Po prawej hierarchia obiektów świata (drogi, tory, przystanki, sygnalizacja), na dole katalog zasobów: nawierzchnie, pasy ruchu, krawężniki, oznakowanie poziome.</p>
-        <div class="tags"><span>edytor</span><span>linie z OSM</span><span>Vulkan</span></div>
       </figcaption>
     </figure>
     <figure class="card">
       <button class="media" data-full="img/hotel_polonia-full.webp"><img src="img/hotel_polonia.webp" alt="Model Hotelu Polonia w edytorze" loading="lazy"></button>
       <figcaption>
         <b>Hotel Polonia</b>
-        <p>Budynek odtworzony proceduralnie: bryła z danych LOD2, a okna, gzymsy, dach i szyld złożone z gotowych elementów na podstawie zdjęć ulicy. Dla porównania sąsiednie kamienice po prawej to jeszcze surowa siatka z fotogrametrii. Na ziemi tory tramwajowe, wiaty przystanków i trasa linii.</p>
-        <div class="tags"><span>budynki proceduralne</span><span>LOD2</span></div>
       </figcaption>
     </figure>
     <figure class="card">
       <button class="media" data-full="img/kazimierz-full.webp"><img src="img/kazimierz.webp" alt="Widok z lotu ptaka na Kazimierz i Plac Nowy" loading="lazy"></button>
       <figcaption>
         <b>Kazimierz z lotu ptaka</b>
-        <p>Cała dzielnica w jednym widoku: Plac Nowy z Okrąglakiem na środku, u góry kościół Bożego Ciała. Budynki to siatki 3D z fotogrametrii, drogi, chodniki i drzewa są generowane z danych wektorowych.</p>
-        <div class="tags"><span>fotogrametria</span><span>streaming</span></div>
       </figcaption>
     </figure>
     <figure class="card">
       <button class="media" data-full="img/alfa_romeo-full.webp"><img src="img/alfa_romeo.webp" alt="Samochód na moście nad Wisłą, w tle Wawel" loading="lazy"></button>
       <figcaption>
         <b>Most nad Wisłą i Wawel</b>
-        <p>Świat wyeksportowany do Assetto Corsa. Przejazd mostem o zachodzie słońca, w tle Wzgórze Wawelskie z katedrą i zamkiem.</p>
-        <div class="tags"><span>eksport do Assetto Corsa</span></div>
       </figcaption>
     </figure>
     <figure class="card">
       <button class="media" data-full="img/centrum_kongresowe_ice-full.webp"><img src="img/centrum_kongresowe_ice.webp" alt="Widok z kokpitu na drogę do Centrum Kongresowego ICE" loading="lazy"></button>
       <figcaption>
         <b>W stronę Centrum Kongresowego ICE</b>
-        <p>Widok z kokpitu w Assetto Corsa: przejazd mostem z siecią trakcyjną tramwaju. Na końcu ulicy budynek ICE Kraków.</p>
-        <div class="tags"><span>eksport do Assetto Corsa</span><span>sieć trakcyjna</span></div>
       </figcaption>
     </figure>
     <figure class="card">
       <button class="media" data-full="img/mogilskie-full.webp"><img src="img/mogilskie.webp" alt="Widok z wnętrza auta na szeroką ulicę i Unity Tower" loading="lazy"></button>
       <figcaption>
         <b>Dojazd do Ronda Mogilskiego</b>
-        <p>Szeroka arteria z pasami zieleni i torowiskiem, w oddali Unity Tower. Widok zza kierownicy w Assetto Corsa.</p>
-        <div class="tags"><span>eksport do Assetto Corsa</span></div>
       </figcaption>
     </figure>
   </div>
@@ -176,7 +155,7 @@
 <dialog id="lb" aria-label="Podgląd zdjęcia">
   <div class="lb">
     <div class="lb-img"><img alt=""></div>
-    <div class="lb-cap"><b></b><p></p></div>
+    <div class="lb-cap"><b></b></div>
     <button class="close" aria-label="Zamknij">✕</button>
     <button class="prev" aria-label="Poprzednie">‹</button>
     <button class="next" aria-label="Następne">›</button>
@@ -207,7 +186,6 @@
     lbImg.src = c.querySelector('[data-full]').dataset.full;
     lbImg.alt = c.querySelector('img').alt;
     lb.querySelector('.lb-cap b').textContent = c.querySelector('figcaption b').textContent;
-    lb.querySelector('.lb-cap p').textContent = c.querySelector('figcaption p').textContent;
   }
   items.forEach((c, i) => c.querySelector('[data-full]').addEventListener('click', () => { show(i); lb.showModal(); }));
   lb.querySelector('.close').onclick = () => lb.close();
