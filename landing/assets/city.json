@@ -1,0 +1,352 @@
+{
+ "version": 2,
+ "q": 0.02,
+ "half": 520.0,
+ "cell": 10.0,
+ "n": 105,
+ "base": -14.0,
+ "exag": 1.25,
+ "angle": -29.000000000000004,
+ "focus": [
+  0.0,
+  -0.0
+ ],
+ "layers": [
+  "roads",
+  "buildings",
+  "green",
+  "trees",
+  "markings",
+  "tracks",
+  "props"
+ ],
+ "blocks": {
+  "pts": [
+   0,
+   549747
+  ],
+  "rings": [
+   2198988,
+   11865
+  ],
+  "polys": [
+   2293908,
+   9273
+  ],
+  "terrain": [
+   2368092,
+   105
+  ],
+  "drape": [
+   2390144,
+   3069,
+   16
+  ],
+  "walls": [
+   2439248,
+   1708,
+   18
+  ],
+  "extrude": [
+   2469992,
+   4496,
+   24
+  ],
+  "prism": [
+   2577896,
+   6737,
+   28
+  ],
+  "blob": [
+   2766532,
+   7582,
+   24
+  ]
+ },
+ "stats": {
+  "relief": 11.9,
+  "side": 1040,
+  "surfaces": 2421,
+  "buildings": 1299,
+  "tallest": 71,
+  "trees": 5105,
+  "crossings": 147,
+  "zebra": 885,
+  "track_km": 7.6,
+  "lamps": 498,
+  "streets": 57,
+  "stops": 26
+ },
+ "labels": [
+  {
+   "kind": "building",
+   "text": "Sukiennice",
+   "pos": [
+    3.7,
+    28.6,
+    -1.8
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Wie\u017ca Ratuszowa",
+   "pos": [
+    -44.4,
+    62.0,
+    51.5
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Ko\u015bci\u00f3\u0142 Mariacki",
+   "pos": [
+    127.5,
+    80.0,
+    -66.0
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Brama Floria\u0144ska",
+   "pos": [
+    90.1,
+    40.9,
+    -446.6
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Ko\u015bci\u00f3\u0142 \u015bw. Anny",
+   "pos": [
+    -272.1,
+    47.3,
+    56.9
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Filharmonia",
+   "pos": [
+    -137.5,
+    22.3,
+    435.5
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Poczta G\u0142\u00f3wna",
+   "pos": [
+    445.7,
+    36.7,
+    17.8
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Teatr S\u0142owackiego",
+   "pos": [
+    244.5,
+    38.0,
+    -414.9
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Franciszkanie",
+   "pos": [
+    51.1,
+    29.9,
+    287.8
+   ]
+  },
+  {
+   "kind": "building",
+   "text": "Dominikanie",
+   "pos": [
+    260.4,
+    44.0,
+    159.8
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "\u015awi\u0119tego Marka",
+   "lvl": 0,
+   "pos": [
+    136.9,
+    13.5,
+    -296.1
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "Rynek G\u0142\u00f3wny",
+   "lvl": 0,
+   "pos": [
+    83.7,
+    10.4,
+    -65.3
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "\u015awi\u0119tej Anny",
+   "lvl": 0,
+   "pos": [
+    -231.7,
+    7.6,
+    94.7
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "Szpitalna",
+   "lvl": 0,
+   "pos": [
+    192.7,
+    12.3,
+    -228.8
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "\u015awi\u0119tego Krzy\u017ca",
+   "lvl": 0,
+   "pos": [
+    300.1,
+    11.6,
+    -228.2
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "Basztowa",
+   "lvl": 0,
+   "pos": [
+    -271.2,
+    9.9,
+    -420.9
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "Juliana Dunajewskiego",
+   "lvl": 0,
+   "pos": [
+    -337.1,
+    7.0,
+    -222.4
+   ]
+  },
+  {
+   "kind": "street",
+   "text": "Poselska",
+   "lvl": 0,
+   "pos": [
+    315.1,
+    9.6,
+    272.5
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Poczta G\u0142\u00f3wna",
+   "pos": [
+    439.9,
+    3.3,
+    58.0
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Filharmonia",
+   "pos": [
+    -112.1,
+    2.6,
+    395.5
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "UJ / AST",
+   "pos": [
+    -318.4,
+    1.0,
+    346.0
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Teatr Bagatela",
+   "pos": [
+    -371.9,
+    6.3,
+    -38.7
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Stary Kleparz",
+   "pos": [
+    -178.4,
+    12.8,
+    -468.6
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Teatr S\u0142owackiego",
+   "pos": [
+    368.7,
+    11.4,
+    -495.2
+   ]
+  },
+  {
+   "kind": "stop",
+   "text": "Garbarska",
+   "pos": [
+    -365.6,
+    6.6,
+    -317.8
+   ]
+  }
+ ],
+ "site": {
+  "title": "Krak\u00f3w, Rynek G\u0142\u00f3wny",
+  "latlon": "50.0617\u00b0 N 19.9373\u00b0 E",
+  "tags": [
+   "Sukiennice",
+   "Ko\u015bci\u00f3\u0142 Mariacki",
+   "Brama Floria\u0144ska",
+   "Poczta G\u0142\u00f3wna"
+  ]
+ },
+ "colors": {
+  "soil1": [
+   122,
+   92,
+   70
+  ],
+  "soil2": [
+   150,
+   116,
+   84
+  ],
+  "soil3": [
+   178,
+   146,
+   106
+  ],
+  "plinth": [
+   52,
+   54,
+   62
+  ]
+ },
+ "ground": [
+  200,
+  206,
+  172
+ ]
+}
