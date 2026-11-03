@@ -58,6 +58,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 nav.links { margin-left: auto; display: flex; align-items: center; gap: 28px; padding-left: 16px; }
 nav.links a { text-decoration: none; color: var(--bar-ink); opacity: .7; font-size: 15px; font-weight: 500; }
 nav.links a:hover { opacity: 1; }
+nav.links .lang { opacity: 1; font: 500 12px var(--f-mono); letter-spacing: .08em; border: 1px solid #1d232033; padding: 6px 9px; }
+nav.links .lang:hover { border-color: var(--bar-ink); }
 nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padding: 9px 16px; }
 .progress { position: fixed; left: 0; top: calc(64px + env(safe-area-inset-top, 0px)); height: 3px; width: 100%; z-index: 39;
   background: var(--brand); transform-origin: 0 50%; transform: scaleX(0); }
@@ -68,11 +70,11 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 64%); }
 .pano-stage::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35; z-index: 1;
   background-image: radial-gradient(#00000012 0.6px, transparent 0.7px); background-size: 3px 3px; }
-.pano-copy { position: absolute; z-index: 3; left: var(--gut-l); right: var(--gut-r); top: calc(64px + 9vh); max-width: 1280px; margin: 0 auto;
+.pano-copy { position: absolute; z-index: 3; left: var(--gut-l); right: var(--gut-r); top: calc(64px + 5vh); max-width: 1280px; margin: 0 auto;
   display: grid; gap: 18px; will-change: transform, opacity; }
-.pano-copy h1 { font-size: clamp(52px, 9.4vw, 168px); line-height: 0.9; max-width: 11em; }
+.pano-copy h1 { font-size: clamp(44px, 6.2vw, 116px); line-height: 0.92; max-width: 15em; }
 .pano-copy h1 em { font-family: var(--f-logo); font-style: italic; font-weight: 700; color: var(--brand); letter-spacing: -0.03em; }
-.pano-copy p { max-width: 30em; color: var(--ink-2); font-size: 18px; }
+.pano-copy p { max-width: 38em; color: var(--ink-2); font-size: 17px; }
 .pano-layers { position: absolute; left: 50%; bottom: -2vh; height: max(37vw, 58vh); aspect-ratio: 3 / 1; transform: translateX(-50%); z-index: 2; }
 .pano-layers img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; will-change: transform;
   transform-origin: 50% 100%; user-select: none; -webkit-user-drag: none; }
@@ -206,7 +208,7 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   .rail { display: none; }
   .panel { padding: 16px 18px; }
   .panel dd { font-size: 20px; }
-  nav.links a:not(.cta) { display: none; }
+  nav.links a:not(.cta):not(.lang) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pano-hint i { animation: none; }
@@ -218,53 +220,54 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 <header class="top">
   <a class="brand" href="#top">Astymorph</a>
   <nav class="links" aria-label="Sekcje">
-    <a href="#budowa">Lorem</a>
-    <a href="#obrazy">Ipsum</a>
-    <a href="#seria">Dolor</a>
-    <a class="cta" href="#finale">Sit amet</a>
+    <a href="#budowa">Makieta</a>
+    <a href="#obrazy">Obrazy</a>
+    <a href="#seria">Etapy</a>
+    <a class="lang" href="en.html" hreflang="en" lang="en">EN</a>
+    <a class="cta" href="#cechy">Edytor</a>
   </nav>
 </header>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <main id="top">
-  <section class="pano" id="pano" aria-label="Lorem ipsum">
+  <section class="pano" id="pano" aria-label="Malowana panorama Starego Miasta">
     <div class="pano-stage" id="panoStage">
       <div class="pano-copy" id="panoCopy">
-        <span class="eyebrow">Lorem ipsum · 00.0000° N 00.0000° E</span>
-        <h1>Lorem ipsum <em>dolor</em> sit amet.</h1>
-        <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <span class="eyebrow">Kraków, Stare Miasto · 50.0617° N 19.9373° E</span>
+        <h1>Kraków zbudowany <em>z map</em> i pomiarów.</h1>
+        <p>Astymorph buduje świat do symulatorów jazdy z map ulic i pomiarów wysokości: teren, ulice, drzewa, budynki, torowiska i przystanki. Każdy element można potem edytować i wyeksportować do Unity, UE5 albo Godota.</p>
       </div>
       <div class="pano-layers" id="panoLayers"></div>
       <div class="pano-end" id="panoEnd">
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <a class="btn" href="#budowa">Lorem ipsum</a>
+        <p>Budynki na tej panoramie pochodzą z siatki fotogrametrycznej. Każdy z pięciu planów przemalował model obrazu uruchomiony lokalnie.</p>
+        <a class="btn" href="#budowa">Zobacz, jak powstaje makieta</a>
       </div>
-      <div class="pano-hint" id="panoHint"><i></i>Lorem ipsum</div>
+      <div class="pano-hint" id="panoHint"><i></i>Przewiń</div>
     </div>
   </section>
 
   <div class="ribbon" aria-hidden="true"><div id="ribbon">
-    <span>Lorem ipsum dolor</span><span>Sit amet consectetur</span><span>Adipiscing elit</span><span>Sed do eiusmod</span>
-    <span>Lorem ipsum dolor</span><span>Sit amet consectetur</span><span>Adipiscing elit</span><span>Sed do eiusmod</span>
+    <span>Teren</span><span>Ulice</span><span>Zieleń</span><span>Budynki</span><span>Torowiska</span><span>Przystanki</span>
+    <span>Teren</span><span>Ulice</span><span>Zieleń</span><span>Budynki</span><span>Torowiska</span><span>Przystanki</span>
   </div></div>
 
   <section class="statement" id="statement">
     <div class="wrap">
-      <span class="eyebrow">Lorem / 01</span>
+      <span class="eyebrow">01 · Wycinek</span>
       <div>
-        <p class="big" id="bigText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+        <p class="big" id="bigText">Wycinek ma 1040 metrów boku i obejmuje Rynek, Planty i Pocztę Główną. Teren, ulice, drzewa i budynki powstały z map i pomiarów wysokości, bez ręcznego modelowania.</p>
         <div class="facts">
-          <div><b data-stat="side">1040 m</b><span>Lorem ipsum dolor</span></div>
-          <div><b data-stat="buildings">1 299</b><span>Sit amet consectetur</span></div>
-          <div><b data-stat="trees">5 105</b><span>Adipiscing elit sed</span></div>
+          <div><b data-stat="side">1040 m</b><span>bok wycinka</span></div>
+          <div><b data-stat="buildings">1 299</b><span>budynków</span></div>
+          <div><b data-stat="trees">5 105</b><span>drzew</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="build" id="budowa" aria-label="Lorem ipsum">
+  <section class="build" id="budowa" aria-label="Makieta Starego Miasta">
     <div class="stage" id="stage">
-      <canvas id="scene" aria-label="Lorem ipsum dolor sit amet"></canvas>
+      <canvas id="scene" aria-label="Makieta 3D Starego Miasta w Krakowie, składana podczas przewijania"></canvas>
       <div class="labels" id="labels" aria-hidden="true"></div>
       <div class="hud">
         <span class="mono" id="hudCoords">1040 × 1040 m</span>
@@ -273,113 +276,113 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
       <div class="panel" id="panel">
         <ol>
           <li data-i="1">
-            <div class="step"><span class="mono">01 / 05</span><span class="mono">LOREM</span></div>
-            <h3>Lorem ipsum dolor</h3>
-            <p>Sit amet, consectetur adipiscing elit. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
-            <dl><div><dt>Lorem</dt><dd>1 m</dd></div><div><dt>Ipsum</dt><dd data-stat="relief">–</dd></div><div><dt>Dolor</dt><dd data-stat="side">–</dd></div></dl>
+            <div class="step"><span class="mono">01 / 05</span><span class="mono">TEREN</span></div>
+            <h3>Rzeźba terenu</h3>
+            <p>Teren pochodzi z modelu wysokości o oczku 1 m. Na początku wysokości są przesadzone, żeby było widać spadek ku Wiśle.</p>
+            <dl><div><dt>siatka</dt><dd>1 m</dd></div><div><dt>różnica wysokości</dt><dd data-stat="relief">–</dd></div><div><dt>bok</dt><dd data-stat="side">–</dd></div></dl>
           </li>
           <li data-i="2">
-            <div class="step"><span class="mono">02 / 05</span><span class="mono">IPSUM</span></div>
-            <h3>Consectetur adipiscing</h3>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.</p>
-            <dl><div><dt>Lorem</dt><dd data-stat="surfaces">–</dd></div><div><dt>Ipsum</dt><dd data-stat="streets">–</dd></div><div><dt>Dolor</dt><dd data-stat="crossings">–</dd></div></dl>
+            <div class="step"><span class="mono">02 / 05</span><span class="mono">ULICE</span></div>
+            <h3>Ulice, chodniki, place</h3>
+            <p>Każda nawierzchnia jest osobnym obiektem: jezdnia, chodnik, plac, ścieżka. Uliczki bez asfaltu dostają bruk.</p>
+            <dl><div><dt>powierzchni</dt><dd data-stat="surfaces">–</dd></div><div><dt>ulic</dt><dd data-stat="streets">–</dd></div><div><dt>przejść</dt><dd data-stat="crossings">–</dd></div></dl>
           </li>
           <li data-i="3">
-            <div class="step"><span class="mono">03 / 05</span><span class="mono">DOLOR</span></div>
-            <h3>Sed do eiusmod</h3>
-            <p>Vestibulum id ligula porta felis euismod semper. Maecenas faucibus mollis interdum.</p>
-            <dl><div><dt>Lorem</dt><dd data-stat="trees">–</dd></div><div><dt>Ipsum</dt><dd>9</dd></div><div><dt>Dolor</dt><dd>25 cm</dd></div></dl>
+            <div class="step"><span class="mono">03 / 05</span><span class="mono">ZIELEŃ</span></div>
+            <h3>Drzewa z pomiaru</h3>
+            <p>Każde drzewo ma zmierzoną wysokość i średnicę korony. Iglaste i liściaste dostają inne modele.</p>
+            <dl><div><dt>drzew</dt><dd data-stat="trees">–</dd></div><div><dt>typów drzew</dt><dd>9</dd></div></dl>
           </li>
           <li data-i="4">
-            <div class="step"><span class="mono">04 / 05</span><span class="mono">SIT</span></div>
-            <h3>Tempor incididunt</h3>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor.</p>
-            <dl><div><dt>Lorem</dt><dd data-stat="buildings">–</dd></div><div><dt>Ipsum</dt><dd data-stat="tallest">–</dd></div><div><dt>Dolor</dt><dd>3,2 m</dd></div></dl>
+            <div class="step"><span class="mono">04 / 05</span><span class="mono">BUDYNKI</span></div>
+            <h3>Wysokość z pomiaru</h3>
+            <p>Obrys budynku pochodzi z mapy, a wysokość gzymsu, dachu i wież z modelu pokrycia terenu. Kościoły dostają cegłę i wysokie okna.</p>
+            <dl><div><dt>budynków</dt><dd data-stat="buildings">–</dd></div><div><dt>najwyższa wieża</dt><dd data-stat="tallest">–</dd></div><div><dt>kondygnacja</dt><dd>3,2 m</dd></div></dl>
           </li>
           <li data-i="5">
-            <div class="step"><span class="mono">05 / 05</span><span class="mono">AMET</span></div>
-            <h3>Ut labore et dolore</h3>
-            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus.</p>
-            <dl><div><dt>Lorem</dt><dd data-stat="stops">–</dd></div><div><dt>Ipsum</dt><dd data-stat="lamps">–</dd></div><div><dt>Dolor</dt><dd data-stat="track_km">–</dd></div></dl>
+            <div class="step"><span class="mono">05 / 05</span><span class="mono">DETALE</span></div>
+            <h3>Przejścia, tory, przystanki</h3>
+            <p>Na koniec dochodzą przejścia dla pieszych, torowiska ze słupami trakcji, wiaty przystanków i latarnie.</p>
+            <dl><div><dt>przystanków</dt><dd data-stat="stops">–</dd></div><div><dt>latarni</dt><dd data-stat="lamps">–</dd></div><div><dt>torów</dt><dd data-stat="track_km">–</dd></div></dl>
           </li>
         </ol>
       </div>
-      <div class="rail" id="rail" aria-label="Lorem">
-        <button type="button" data-go="1">Lorem<i></i></button>
-        <button type="button" data-go="2">Ipsum<i></i></button>
-        <button type="button" data-go="3">Dolor<i></i></button>
-        <button type="button" data-go="4">Sit<i></i></button>
-        <button type="button" data-go="5">Amet<i></i></button>
-        <button type="button" data-go="6">Elit<i></i></button>
+      <div class="rail" id="rail" aria-label="Etapy">
+        <button type="button" data-go="1">Teren<i></i></button>
+        <button type="button" data-go="2">Ulice<i></i></button>
+        <button type="button" data-go="3">Zieleń<i></i></button>
+        <button type="button" data-go="4">Budynki<i></i></button>
+        <button type="button" data-go="5">Detale<i></i></button>
+        <button type="button" data-go="6">Obróć<i></i></button>
       </div>
-      <div class="hint">Lorem ipsum dolor sit amet.</div>
-      <div class="loader" id="loader"><div><span class="mono" id="loadTxt">Lorem ipsum</span><span class="bar"><i id="loadBar"></i></span></div></div>
+      <div class="hint">Przeciągnij, żeby obrócić makietę.</div>
+      <div class="loader" id="loader"><div><span class="mono" id="loadTxt">Wczytuję makietę</span><span class="bar"><i id="loadBar"></i></span></div></div>
     </div>
   </section>
 
   <section class="plates" id="obrazy">
     <div class="wrap">
       <div class="plates-head">
-        <h2>Lorem ipsum dolor sit amet</h2>
-        <p>Consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida.</p>
+        <h2>Ta sama makieta, namalowana</h2>
+        <p>Każdy obraz zaczyna się od renderu makiety z budynkami z fotogrametrii. Potem model obrazu uruchomiony lokalnie przemalowuje go w stylu gwaszu. Ulice, dachy i wieże zostają na swoich miejscach.</p>
       </div>
       <div class="hang">
         <figure class="work" data-speed="-0.08">
-          <div class="frame"><img src="assets/art/rynek.webp" width="1024" height="1024" loading="lazy" alt="Lorem ipsum dolor sit amet."></div>
-          <figcaption><b>Lorem ipsum</b><span class="mono">I · 2026</span></figcaption>
+          <div class="frame"><img src="assets/art/rynek.webp" width="1024" height="1024" loading="lazy" alt="Rynek Główny z Sukiennicami, wieżą ratuszową i kamienicami, namalowany w stylu gwaszu."></div>
+          <figcaption><b>Rynek Główny</b><span class="mono">I · ok. 280 m</span></figcaption>
         </figure>
         <figure class="work" data-speed="0.12">
-          <div class="frame"><img src="assets/art/mariacki.webp" width="1024" height="1024" loading="lazy" alt="Consectetur adipiscing elit."></div>
-          <figcaption><b>Dolor sit</b><span class="mono">II · 2026</span></figcaption>
+          <div class="frame"><img src="assets/art/mariacki.webp" width="1024" height="1024" loading="lazy" alt="Kościół Mariacki wśród kamienic, namalowany w stylu gwaszu."></div>
+          <figcaption><b>Kościół Mariacki</b><span class="mono">II · ok. 150 m</span></figcaption>
         </figure>
         <figure class="work" data-speed="0.04">
-          <div class="frame"><img src="assets/art/poczta.webp" width="1024" height="1024" loading="lazy" alt="Sed do eiusmod tempor."></div>
-          <figcaption><b>Amet consectetur</b><span class="mono">III · 2026</span></figcaption>
+          <div class="frame"><img src="assets/art/poczta.webp" width="1024" height="1024" loading="lazy" alt="Okolice Poczty Głównej z torowiskiem i wiatami przystanków, namalowane w stylu gwaszu."></div>
+          <figcaption><b>Przy Poczcie Głównej</b><span class="mono">III · ok. 170 m</span></figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section class="series" id="seria" aria-label="Lorem ipsum">
+  <section class="series" id="seria" aria-label="Etapy budowy">
     <div class="series-stage">
-      <div class="wrap series-head"><span class="eyebrow">Lorem / 02</span><h2>Dolor sit amet</h2></div>
+      <div class="wrap series-head"><span class="eyebrow">02 · Etapy</span><h2>Od terenu do miasta</h2></div>
       <div class="track" id="track">
-        <figure><img src="assets/art/etap-1.webp" width="1024" height="1024" loading="lazy" alt="Lorem ipsum."><figcaption><b>I</b><span>Lorem ipsum dolor</span></figcaption></figure>
-        <figure><img src="assets/art/etap-2.webp" width="1024" height="1024" loading="lazy" alt="Dolor sit amet."><figcaption><b>II</b><span>Sit amet consectetur</span></figcaption></figure>
-        <figure><img src="assets/art/etap-3.webp" width="1024" height="1024" loading="lazy" alt="Consectetur adipiscing."><figcaption><b>III</b><span>Adipiscing elit sed</span></figcaption></figure>
-        <figure><img src="assets/art/etap-4.webp" width="1024" height="1024" loading="lazy" alt="Sed do eiusmod."><figcaption><b>IV</b><span>Do eiusmod tempor</span></figcaption></figure>
-        <figure><img src="assets/art/hero.webp" width="1024" height="1024" loading="lazy" alt="Tempor incididunt."><figcaption><b>V</b><span>Incididunt ut labore</span></figcaption></figure>
+        <figure><img src="assets/art/etap-1.webp" width="1024" height="1024" loading="lazy" alt="Sam teren na płycie makiety."><figcaption><b>I</b><span>Teren</span></figcaption></figure>
+        <figure><img src="assets/art/etap-2.webp" width="1024" height="1024" loading="lazy" alt="Ulice, chodniki i place na terenie."><figcaption><b>II</b><span>Ulice i place</span></figcaption></figure>
+        <figure><img src="assets/art/etap-3.webp" width="1024" height="1024" loading="lazy" alt="Ulice, trawniki i drzewa Plant."><figcaption><b>III</b><span>Zieleń</span></figcaption></figure>
+        <figure><img src="assets/art/etap-4.webp" width="1024" height="1024" loading="lazy" alt="Makieta z budynkami."><figcaption><b>IV</b><span>Budynki</span></figcaption></figure>
+        <figure><img src="assets/art/hero.webp" width="1024" height="1024" loading="lazy" alt="Cały wycinek Starego Miasta."><figcaption><b>V</b><span>Cały wycinek</span></figcaption></figure>
       </div>
     </div>
   </section>
 
   <section class="feat" id="cechy">
     <div class="wrap">
-      <span class="eyebrow">Lorem / 03</span>
-      <h2>Ut enim ad minim veniam</h2>
+      <span class="eyebrow">03 · Edytor</span>
+      <h2>Te same dane w edytorze</h2>
       <dl>
-        <div><dt><small>01</small>Lorem ipsum</dt><dd>Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</dd></div>
-        <div><dt><small>02</small>Dolor sit</dt><dd>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</dd></div>
-        <div><dt><small>03</small>Amet elit</dt><dd>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</dd></div>
-        <div><dt><small>04</small>Sed eiusmod</dt><dd>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</dd></div>
-        <div><dt><small>05</small>Tempor labore</dt><dd>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</dd></div>
-        <div><dt><small>06</small>Magna aliqua</dt><dd>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet consectetur.</dd></div>
+        <div><dt><small>01</small>Trzy poziomy</dt><dd>Teren, wiadukty i mosty (+1), tunele i przejścia (−1). Fizyka pojazdu liczy jazdę na właściwym poziomie.</dd></div>
+        <div><dt><small>02</small>Jezdnie z pasami</dt><dd>Przekroje pasów, linie, strzałki i przejścia. Pas autobusowy i rowerowy to osobne typy pasa.</dd></div>
+        <div><dt><small>03</small>Torowiska</dt><dd>Tory w jezdni i na podsypce, słupy trakcji, rozjazdy i łuki z krzywymi przejściowymi.</dd></div>
+        <div><dt><small>04</small>Zieleń z pomiaru</dt><dd>Drzewa z wysokością i koroną w dziewięciu typach, trawniki i żywopłoty.</dd></div>
+        <div><dt><small>05</small>Budynki</dt><dd>Bryły z obrysu i pomiaru wysokości, elewacje proceduralne z oknami, gzymsami i witrynami.</dd></div>
+        <div><dt><small>06</small>Eksport</dt><dd>Unity, UE5 i Godot. Kafle w układzie współrzędnych projektu, materiały rozdzielone na klasy.</dd></div>
       </dl>
     </div>
   </section>
 
   <section class="finale" id="finale">
     <div class="wrap">
-      <h2>Lorem ipsum dolor sit.</h2>
-      <p>Amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis. Maecenas sed diam eget risus varius blandit.</p>
-      <a class="btn" href="#top">Lorem ipsum</a>
+      <h2>Kraków to pierwszy wycinek.</h2>
+      <p>Ten sam proces działa poza Krakowem. W programie zaznaczasz obszar na mapie, a Astymorph pobiera dane i buduje teren, ulice, zieleń i budynki.</p>
+      <a class="btn" href="#top">Wróć na górę</a>
     </div>
     <div class="skyline" id="skyline" aria-hidden="true">
       <div class="sil" style="--c: #d6371b; --m: url(assets/pano/band4.webp)"></div>
       <div class="sil" style="--c: #b02c15; --m: url(assets/pano/band3.webp)"></div>
       <div class="sil" style="--c: #6a1a0c; --m: url(assets/pano/band2.webp)"></div>
     </div>
-    <div class="foot"><div class="wrap"><b>Astymorph</b><span class="mono">Lorem ipsum dolor · 2026</span></div></div>
+    <div class="foot"><div class="wrap"><b>Astymorph</b><span class="mono">Makieta: Kraków, Stare Miasto · 2026</span></div></div>
   </section>
 </main>
 
@@ -491,7 +494,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (s) => document.querySelector(s);
 const stageEl = $("#stage"), buildEl = $("#budowa"), canvas = $("#scene");
-const fmt = (n) => new Intl.NumberFormat("pl-PL").format(n);
+const EN = document.documentElement.lang === "en";
+const fmt = (n) => new Intl.NumberFormat(EN ? "en-GB" : "pl-PL").format(n);
+const dec = (x) => (EN ? String(x) : String(x).replace(".", ","));
 
 // ---------------------------------------------------------------- data
 async function loadBin(url, onProgress) {
@@ -946,13 +951,13 @@ scene.add(board);
 async function build() {
   const data = await getData((f, total) => {
     $("#loadBar").style.width = (f * 100).toFixed(1) + "%";
-    $("#loadTxt").textContent = `Lorem ipsum ${(f * total / 1e6).toFixed(1).replace(".", ",")} / ${(total / 1e6).toFixed(1).replace(".", ",")} MB`;
+    $("#loadTxt").textContent = `Wczytuję makietę ${dec((f * total / 1e6).toFixed(1))} / ${dec((total / 1e6).toFixed(1))} MB`;
   });
   meta = data.meta;
   shared.uRelief.value = meta.stats.relief || 9;
   const t0 = performance.now();
   const geos = await buildCity(meta, data.buf, async (what) => {
-    $("#loadTxt").textContent = `Lorem ipsum dolor`;
+    $("#loadTxt").textContent = `Składam makietę`;
     await new Promise((r) => setTimeout(r, 0));
   });
   let tris = 0;
@@ -989,7 +994,7 @@ async function build() {
     const v = st[el.dataset.stat];
     if (v == null) return;
     const k = el.dataset.stat;
-    el.textContent = k === "relief" || k === "track_km" ? String(v).replace(".", ",") + (k === "relief" ? " m" : " km")
+    el.textContent = k === "relief" || k === "track_km" ? dec(v) + (k === "relief" ? " m" : " km")
       : k === "tallest" || k === "side" ? v + " m" : fmt(v);
   });
   buildLabels();
@@ -1068,7 +1073,7 @@ controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
 let exploring = false, idle = 0;
 controls.addEventListener("start", () => { idle = 0; controls.autoRotate = false; });
 const coarse = matchMedia("(pointer: coarse)").matches;
-if (coarse) document.querySelector(".hint").textContent = "Lorem ipsum dolor.";
+if (coarse) document.querySelector(".hint").textContent = "Makieta obraca się sama.";
 function setExplore(on) {
   if (on === exploring) return;
   exploring = on;
@@ -1142,7 +1147,7 @@ function frame(now) {
 }
 requestAnimationFrame(frame);
 window.__dio = { scene, hemi, sun, layers, shared, renderer };
-build().catch((e) => { $("#loadTxt").textContent = "Lorem ipsum (" + e.message + ")"; console.error(e); });
+build().catch((e) => { $("#loadTxt").textContent = "Nie udało się wczytać makiety (" + e.message + ")"; console.error(e); });
 
 </script>
 </body>
