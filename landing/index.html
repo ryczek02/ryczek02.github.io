@@ -189,15 +189,26 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .finale p { max-width: 32em; font-size: 18px; opacity: .9; }
 .finale .btn { background: var(--brand-ink); color: var(--brand-deep); }
 .finale .btn:hover { background: #fff; }
-/* full width (with a little spare for the mouse slide); on phones wider than the screen, cropped at the sides */
-.skyline { position: relative; height: calc(max(106vw, 780px) / 3); margin-top: clamp(24px, 6vw, 80px); }
+/* the name set edge to edge: the word is 4.26 font-sizes wide, so the size follows the width of its box */
+.mark { position: relative; z-index: 1; container-type: inline-size; margin-top: clamp(56px, 10vw, 150px);
+  padding-left: var(--gut-l); padding-right: var(--gut-r); }
+.mark span { display: block; font: italic 700 calc(100cqw / 4.26)/0.8 var(--f-logo); letter-spacing: -0.035em; white-space: nowrap;
+  text-align: center; padding-bottom: 0.2em; }
+/* full width (with a little spare for the mouse slide); on phones wider than the screen, cropped at the sides.
+   The planes stand on the bottom edge of the page and their towers rise in front of the name. */
+.skyline { position: relative; z-index: 2; height: calc(max(106vw, 780px) / 3); margin-top: calc(max(106vw, 780px) / -9); pointer-events: none; }
 /* each plane is one solid red cut out by the shape of the painted band: the nearer one covers the farther */
 .skyline .sil { position: absolute; left: 50%; bottom: 0; width: max(106vw, 780px); aspect-ratio: 3 / 1; transform: translateX(-50%);
   background: var(--c); will-change: transform;
   -webkit-mask: var(--m) center / 100% 100% no-repeat; mask: var(--m) center / 100% 100% no-repeat; }
-.foot { position: relative; z-index: 3; background: var(--brand-deep); color: var(--brand-ink); }
-.foot .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px; font-size: 14px; }
-.foot b { font: italic 700 20px var(--f-logo); }
+/* the small footer lies over the nearest plane, on a shade so the text stays legible whatever is behind it */
+.foot { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; color: var(--brand-ink);
+  background: linear-gradient(180deg, #4a120800, #4a1208b3 70%); padding-top: 28px; }
+.foot .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 24px; flex-wrap: wrap;
+  padding-block: 14px calc(14px + env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
+.foot nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.foot a { text-decoration: none; opacity: .85; }
+.foot a:hover { opacity: 1; text-decoration: underline; }
 
 @media (max-width: 860px) {
   .statement .wrap, .plates-head { grid-template-columns: minmax(0, 1fr); }
@@ -377,12 +388,16 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
       <p>Ten sam proces działa poza Krakowem. W programie zaznaczasz obszar na mapie, a Astymorph pobiera dane i buduje teren, ulice, zieleń i budynki.</p>
       <a class="btn" href="#top">Wróć na górę</a>
     </div>
+    <div class="mark" aria-hidden="true"><span>Astymorph</span></div>
     <div class="skyline" id="skyline" aria-hidden="true">
       <div class="sil" style="--c: #d6371b; --m: url(assets/pano/band4.webp)"></div>
       <div class="sil" style="--c: #b02c15; --m: url(assets/pano/band3.webp)"></div>
       <div class="sil" style="--c: #6a1a0c; --m: url(assets/pano/band2.webp)"></div>
     </div>
-    <div class="foot"><div class="wrap"><b>Astymorph</b><span class="mono">Makieta: Kraków, Stare Miasto · 2026</span></div></div>
+    <footer class="foot"><div class="wrap">
+      <span>© 2026 Astymorph · Makieta: Kraków, Stare Miasto</span>
+      <nav aria-label="Stopka"><a href="#budowa">Makieta</a><a href="#obrazy">Obrazy</a><a href="#cechy">Edytor</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
+    </div></footer>
   </section>
 </main>
 
@@ -420,7 +435,7 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   const ribbon = $("#ribbon"), track = $("#track"), series = $("#seria"), sky = [...document.querySelectorAll("#skyline .sil")];
   const pano = $("#pano"), copy = $("#panoCopy"), end = $("#panoEnd"), hint = $("#panoHint"), bar = $("#progress");
 
-  let mx = 0, my = 0, mxd = 0, myd = 0, pd = progressIn(pano), sd = progressIn(series);
+  let mx = 0, my = 0, mxd = 0, myd = 0, pd = progressIn(pano), sd = progressIn(series), fd = 0;
   addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return;
     mx = (e.clientX / innerWidth) * 2 - 1; my = (e.clientY / innerHeight) * 2 - 1;
@@ -469,10 +484,11 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
     const over = Math.max(0, track.scrollWidth - innerWidth + 32);
     track.style.transform = `translate3d(${(-ease(sd) * over).toFixed(1)}px, 0, 0)`;
 
-    // red skyline rises in layers at the end
-    const fr = sky[0].parentElement.getBoundingClientRect(), f = clamp01((innerHeight - fr.top) / (innerHeight + fr.height));
+    // red skyline: whole when it comes into view, then the layers sink as the page runs out (the nearest the most)
+    const fr = sky[0].parentElement.getBoundingClientRect();
+    fd += (clamp01((innerHeight - fr.top) / fr.height) - fd) * k;
     sky.forEach((im, i) => {
-      const y = (1 - f) * (10 + i * 22) * vh * 0.4, x = -mxd * (i + 1) * 0.5 * vh;
+      const y = ease(fd) * (0.06 + i * 0.1) * fr.height, x = -mxd * (i + 1) * 0.5 * vh;
       im.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), ${y.toFixed(1)}px, 0)`;
     });
     requestAnimationFrame(frame);
