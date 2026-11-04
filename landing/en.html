@@ -11,7 +11,7 @@
 <style>
 /* Layout: one long painted journey. The painted skyline opens the page full width and comes apart in depth
    as you scroll; a red ribbon, a statement read word by word, the board building itself, the plates hung at
-   different depths, the series sliding sideways, and the skyline again as a red silhouette at the end. */
+   different depths, the series sliding sideways, and the skyline again as a still red silhouette at the end. */
 :root {
   --paper: #f1ebdf;
   --paper-2: #e7dfcf;
@@ -194,12 +194,12 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   padding-left: var(--gut-l); padding-right: var(--gut-r); }
 .mark span { display: block; font: italic 700 calc(100cqw / 4.26)/0.8 var(--f-logo); letter-spacing: -0.035em; white-space: nowrap;
   text-align: center; padding-bottom: 0.2em; }
-/* full width (with a little spare for the mouse slide); on phones wider than the screen, cropped at the sides.
+/* a little wider than the screen; on phones much wider, cropped at the sides.
    The planes stand on the bottom edge of the page and their towers rise in front of the name. */
 .skyline { position: relative; z-index: 2; height: calc(max(106vw, 780px) / 3); margin-top: calc(max(106vw, 780px) / -9); pointer-events: none; }
 /* each plane is one solid red cut out by the shape of the painted band: the nearer one covers the farther */
 .skyline .sil { position: absolute; left: 50%; bottom: 0; width: max(106vw, 780px); aspect-ratio: 3 / 1; transform: translateX(-50%);
-  background: var(--c); will-change: transform;
+  background: var(--c);
   -webkit-mask: var(--m) center / 100% 100% no-repeat; mask: var(--m) center / 100% 100% no-repeat; }
 /* the small footer lies over the nearest plane, on a shade so the text stays legible whatever is behind it */
 .foot { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; color: var(--brand-ink);
@@ -403,8 +403,8 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 
 <script>
 // Everything that follows the scroll, in one frame loop: the painted skyline (bands slide by depth, the near ones
-// soft), the red ribbon, the statement lit word by word, the plates at different depths, the sideways series and
-// the red skyline at the end. Positions are damped toward the scroll so the motion stays soft.
+// soft), the red ribbon, the statement lit word by word, the plates at different depths and the sideways series.
+// Positions are damped toward the scroll so the motion stays soft.
 (() => {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (s) => document.querySelector(s);
@@ -432,10 +432,10 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   const words = [...big.querySelectorAll("span")];
 
   const plates = [...document.querySelectorAll(".work")];
-  const ribbon = $("#ribbon"), track = $("#track"), series = $("#seria"), sky = [...document.querySelectorAll("#skyline .sil")];
+  const ribbon = $("#ribbon"), track = $("#track"), series = $("#seria");
   const pano = $("#pano"), copy = $("#panoCopy"), end = $("#panoEnd"), hint = $("#panoHint"), bar = $("#progress");
 
-  let mx = 0, my = 0, mxd = 0, myd = 0, pd = progressIn(pano), sd = progressIn(series), fd = 0;
+  let mx = 0, my = 0, mxd = 0, myd = 0, pd = progressIn(pano), sd = progressIn(series);
   addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return;
     mx = (e.clientX / innerWidth) * 2 - 1; my = (e.clientY / innerHeight) * 2 - 1;
@@ -483,14 +483,6 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
     // series slides sideways while its section is pinned
     const over = Math.max(0, track.scrollWidth - innerWidth + 32);
     track.style.transform = `translate3d(${(-ease(sd) * over).toFixed(1)}px, 0, 0)`;
-
-    // red skyline: whole when it comes into view, then the layers sink as the page runs out (the nearest the most)
-    const fr = sky[0].parentElement.getBoundingClientRect();
-    fd += (clamp01((innerHeight - fr.top) / fr.height) - fd) * k;
-    sky.forEach((im, i) => {
-      const y = ease(fd) * (0.06 + i * 0.1) * fr.height, x = -mxd * (i + 1) * 0.5 * vh;
-      im.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), ${y.toFixed(1)}px, 0)`;
-    });
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
