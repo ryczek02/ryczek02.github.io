@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+4:ital,opsz,wght@1,8..60,700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..700&display=swap">
 <style>
 /* Layout: one long painted journey. The painted skyline opens the page full width and comes apart in depth
    as you scroll; a red ribbon, a statement read word by word, the board building itself, the plates hung at
@@ -16,6 +16,9 @@
   --paper: #f1ebdf;
   --paper-2: #e7dfcf;
   --sky: #dfe5df;
+  --sky-hi: #b6d0e2;
+  --sky-mid: #cfe0e8;
+  --haze: #f3e6d2;
   --ink: #1d2320;
   --ink-2: #5d635e;
   --line: #1d232022;
@@ -28,10 +31,7 @@
   --card: #fbf7ee;
   --emerald: #0f6b4e;
   --sun: #ffd84a;
-  --f-logo: "Source Serif 4", "Georgia", serif;
-  --f-display: "Gloock", "Georgia", "Times New Roman", serif;
-  --f-body: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  --f-body: "Manrope", "Segoe UI", system-ui, sans-serif;
   --gut-l: max(16px, env(safe-area-inset-left, 0px));
   --gut-r: max(16px, env(safe-area-inset-right, 0px));
 }
@@ -41,69 +41,90 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .wrap { max-width: 1280px; margin: 0 auto; padding-left: var(--gut-l); padding-right: var(--gut-r); }
-.mono { font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.04em; }
-.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
-h1, h2, h3 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.015em; }
-h2 { font-size: clamp(36px, 5vw, 72px); line-height: 1.0; }
-h3 { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.08; }
+.num { font-size: 13.5px; font-variant-numeric: tabular-nums; }
+h1, h2, h3 { font-weight: 300; text-wrap: balance; margin: 0; letter-spacing: -0.035em; }
+h2 { font-size: clamp(36px, 5vw, 72px); line-height: 1.04; }
+h3 { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.12; font-weight: 400; letter-spacing: -0.02em; }
 p { margin: 0; }
 
 /* header */
 header.top { position: fixed; inset: 0 0 auto; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--bar); color: var(--bar-ink);
-  box-shadow: 0 1px 0 #1d23201f; display: flex; align-items: stretch; min-height: 64px; padding-right: var(--gut-r); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 41; background: var(--bar); }
-.brand { background: var(--brand); color: var(--brand-ink); text-decoration: none; font: italic 700 25px/1 var(--f-logo); letter-spacing: -0.01em;
+  box-shadow: 0 1px 0 #1d23201f; display: flex; align-items: stretch; min-height: 64px; padding-right: var(--gut-r);
+  opacity: var(--nav, 1); transform: translateY(calc((var(--nav, 1) - 1) * 110%)); }
+/* hidden over the hero, slides in as the skyline ends (--nav runs 0..1 with the scroll); tabbing into it shows it at once */
+header.top:focus-within { opacity: 1; transform: none; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 41; background: var(--bar); opacity: var(--nav, 1); }
+.brand { background: var(--brand); color: var(--brand-ink); text-decoration: none; font: 600 22px/1 var(--f-body); letter-spacing: -0.03em;
   display: flex; align-items: center; padding: 0 max(22px, env(safe-area-inset-left, 0px)); }
 .brand:focus-visible { outline: 3px solid var(--brand-ink); outline-offset: -6px; }
 nav.links { margin-left: auto; display: flex; align-items: center; gap: 28px; padding-left: 16px; }
 nav.links a { text-decoration: none; color: var(--bar-ink); opacity: .7; font-size: 15px; font-weight: 500; }
 nav.links a:hover { opacity: 1; }
-nav.links .lang { opacity: 1; font: 500 12px var(--f-mono); letter-spacing: .08em; border: 1px solid #1d232033; padding: 6px 9px; }
-nav.links .lang:hover { border-color: var(--bar-ink); }
 nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padding: 9px 16px; }
 .progress { position: fixed; left: 0; top: calc(64px + env(safe-area-inset-top, 0px)); height: 3px; width: 100%; z-index: 39;
-  background: var(--brand); transform-origin: 0 50%; transform: scaleX(0); }
+  background: var(--brand); transform-origin: 0 50%; transform: scaleX(0); opacity: var(--nav, 1); }
 
 /* 1 painted skyline */
 .pano { position: relative; height: 320vh; }
 .pano-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
-  background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 64%); }
+  background: linear-gradient(180deg, var(--sky-hi) 0%, var(--sky-mid) 30%, #e6ebe6 48%, var(--haze) 62%, var(--paper) 78%); }
+/* a few soft clouds drifting slowly behind the skyline */
+.pano-stage::after { content: ""; position: absolute; inset: 0 -25% 30% -25%; z-index: 1; pointer-events: none; filter: blur(10px);
+  background:
+    radial-gradient(ellipse 13% 5% at 22% 24%, #ffffffc2, #fff0 70%),
+    radial-gradient(ellipse 9% 4% at 29% 21%, #ffffffa8, #fff0 70%),
+    radial-gradient(ellipse 16% 4.5% at 64% 16%, #ffffffad, #fff0 70%),
+    radial-gradient(ellipse 10% 3.5% at 72% 19%, #ffffff9e, #fff0 70%),
+    radial-gradient(ellipse 22% 4% at 46% 42%, #ffffff8a, #fff0 70%),
+    radial-gradient(ellipse 12% 3% at 88% 36%, #ffffff8a, #fff0 70%);
+  animation: drift 160s linear infinite alternate; }
+@keyframes drift { to { transform: translateX(12%); } }
 .pano-stage::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35; z-index: 1;
   background-image: radial-gradient(#00000012 0.6px, transparent 0.7px); background-size: 3px 3px; }
 .pano-copy { position: absolute; z-index: 3; left: var(--gut-l); right: var(--gut-r); top: calc(64px + 5vh); max-width: 1280px; margin: 0 auto;
   display: grid; gap: 18px; will-change: transform, opacity; }
-.pano-copy h1 { font-size: clamp(44px, 6.2vw, 116px); line-height: 0.92; max-width: 15em; }
-.pano-copy h1 em { font-family: var(--f-logo); font-style: italic; font-weight: 700; color: var(--brand); letter-spacing: -0.03em; }
-.pano-copy p { max-width: 38em; color: var(--ink-2); font-size: 17px; }
+.pano-copy h1 { font-size: clamp(44px, 6.2vw, 116px); font-weight: 600; line-height: 0.98; letter-spacing: -0.045em; max-width: 15em; }
+.pano-copy h1 em { font-style: normal; color: var(--brand); }
+.pano-copy p { max-width: 38em; color: var(--ink-2); font-size: 17.5px; font-weight: 500; }
 .pano-layers { position: absolute; left: 50%; bottom: -2vh; height: max(37vw, 58vh); aspect-ratio: 3 / 1; transform: translateX(-50%); z-index: 2; }
 .pano-layers img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; will-change: transform;
   transform-origin: 50% 100%; user-select: none; -webkit-user-drag: none; }
 .pano-end { position: absolute; z-index: 4; left: var(--gut-l); bottom: clamp(20px, 6vh, 64px); display: grid; gap: 14px; max-width: 26em;
   opacity: 0; transform: translateY(20px); will-change: transform, opacity; }
-.pano-end p { color: var(--ink); font-size: 18px; background: var(--card); padding: 16px 18px; box-shadow: 0 20px 50px #0000001f; }
 .btn { display: inline-flex; align-items: center; gap: 12px; width: fit-content; background: var(--brand); color: var(--brand-ink);
   text-decoration: none; font-weight: 600; padding: 13px 20px; }
-.btn::after { content: "→"; font-family: var(--f-mono); }
+.btn::after { content: "→"; }
 .btn:hover { background: var(--brand-deep); }
-.pano-hint { position: absolute; z-index: 4; right: var(--gut-r); bottom: 20px; font: 500 12px var(--f-mono); letter-spacing: .1em;
-  text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 10px; transition: opacity .4s; }
-.pano-hint i { width: 1px; height: 34px; background: var(--ink); animation: drip 1.6s ease-in-out infinite; transform-origin: top; }
-@keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.btn.light { background: #fff; color: var(--ink); box-shadow: 0 8px 24px #1d232014; }
+.btn.light:hover { background: var(--card); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px currentColor; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+/* the red arrow comes up after a moment; a click plays the skyline through to its end */
+.pano-down { all: unset; box-sizing: border-box; position: absolute; z-index: 4; left: 50%; bottom: clamp(20px, 5vh, 48px);
+  width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  background: var(--brand); color: var(--brand-ink); box-shadow: 0 12px 30px #b62a1240;
+  opacity: 0; transform: translate(-50%, 16px); pointer-events: none; transition: opacity .6s ease, transform .6s ease, background .2s; }
+.pano-down.ready { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.pano-down.ready.gone { opacity: 0; transform: translate(-50%, 16px); pointer-events: none; }
+.pano-down:hover { background: var(--brand-deep); }
+.pano-down:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.pano-down svg { width: 24px; height: 24px; animation: nudge 1.8s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
 
 /* 2 ribbon */
 .ribbon { background: var(--brand); color: var(--brand-ink); overflow: hidden; padding-block: 18px; border-block: 1px solid var(--brand-deep); }
 .ribbon div { display: flex; gap: 40px; white-space: nowrap; width: max-content; will-change: transform;
-  font: italic 700 clamp(34px, 5vw, 76px)/1 var(--f-logo); letter-spacing: -0.02em; }
+  font: 200 clamp(34px, 5vw, 76px)/1.05 var(--f-body); letter-spacing: -0.04em; }
 .ribbon span::after { content: "✶"; font-style: normal; margin-left: 40px; font-size: 0.5em; vertical-align: middle; }
 
 /* 3 statement */
 .statement { padding-block: clamp(80px, 14vw, 200px); }
-.statement .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: clamp(24px, 4vw, 64px); }
-.statement p.big { font: 400 clamp(30px, 3.6vw, 56px)/1.12 var(--f-display); letter-spacing: -0.01em; }
+.statement .wrap > div { margin-left: 25%; }
+.statement p.big { font: 300 clamp(30px, 3.6vw, 56px)/1.16 var(--f-body); letter-spacing: -0.03em; }
 .statement p.big span { opacity: .14; transition: opacity .25s linear; }
 .statement p.big span.on { opacity: 1; }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(40px, 6vw, 80px); border-top: 1px solid var(--line); padding-top: 24px; }
-.facts b { display: block; font: 400 clamp(40px, 5vw, 76px)/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.facts b { display: block; font: 200 clamp(40px, 5vw, 76px)/1.1 var(--f-body); letter-spacing: -0.04em; }
 .facts span { color: var(--ink-2); font-size: 14px; }
 
 /* 4 board (3D) */
@@ -120,16 +141,14 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .panel ol { list-style: none; margin: 0; padding: 0; display: grid; }
 .panel li { grid-area: 1 / 1; display: grid; gap: 12px; opacity: 0; transform: translateY(10px); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
 .panel li.on { opacity: 1; transform: none; pointer-events: auto; }
-.panel .step { display: flex; justify-content: space-between; align-items: baseline; }
-.panel .step .mono { color: var(--accent); font-weight: 500; }
 .panel p { color: var(--ink-2); font-size: 15.5px; }
 .panel dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 4px 0 0; border-top: 1px solid var(--line); padding-top: 12px; }
 .panel dl div { display: grid; gap: 0; min-width: 0; }
 .panel dt { font-size: 12px; color: var(--ink-2); }
-.panel dd { margin: 0; font-family: var(--f-display); font-size: 24px; font-variant-numeric: tabular-nums; }
+.panel dd { margin: 0; font-size: 24px; font-weight: 300; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .rail { position: absolute; right: var(--gut-r); top: 50%; transform: translateY(-50%); display: grid; gap: 6px; }
 .rail button { all: unset; cursor: pointer; display: flex; align-items: center; justify-content: flex-end; gap: 10px;
-  font: 500 12px var(--f-mono); letter-spacing: .06em; color: var(--ink-2); padding: 4px 0; }
+  font: 500 13px var(--f-body); color: var(--ink-2); padding: 4px 0; }
 .rail button i { width: 22px; height: 2px; background: var(--line); transition: width .3s, background .3s; }
 .rail button.on { color: var(--ink); }
 .rail button.on i { width: 40px; background: var(--accent); }
@@ -143,7 +162,7 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .lbl { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform; }
 .lbl.stop span { background: var(--sun); color: #1d2320; font: 600 12px var(--f-body); padding: 4px 8px; display: inline-block; transform: translate(-50%, -140%); }
 .lbl.building span { background: var(--card); color: var(--ink); font: 500 12.5px var(--f-body); padding: 5px 9px; display: inline-block; transform: translate(-50%, -150%); box-shadow: 0 4px 14px #0000001a; }
-.lbl.street span { font: 500 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: #1d2320; background: #ffffffc4; padding: 2px 6px; display: inline-block; transform: translate(-50%, -50%); }
+.lbl.street span { font: 600 11px var(--f-body); letter-spacing: .06em; text-transform: uppercase; color: #1d2320; background: #ffffffc4; padding: 2px 6px; display: inline-block; transform: translate(-50%, -50%); }
 .hint { position: absolute; left: 50%; bottom: clamp(16px, 5vh, 56px); transform: translateX(-50%); background: var(--ink); color: var(--paper); font-size: 14px; padding: 9px 14px; opacity: 0; transition: opacity .4s; pointer-events: none; white-space: nowrap; }
 .stage.explore .hint { opacity: 1; }
 .stage.explore .panel { opacity: 0; pointer-events: none; }
@@ -161,7 +180,7 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .work .frame { background: var(--card); padding: clamp(10px, 1.4vw, 20px); box-shadow: 0 1px 0 var(--line), 0 30px 70px #00000021; overflow: hidden; }
 .work img { display: block; width: 100%; height: auto; aspect-ratio: 1; background: var(--paper-2); transform: scale(1.08); will-change: transform; }
 .work figcaption { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; color: var(--ink-2); }
-.work figcaption b { font: 400 22px var(--f-display); color: var(--ink); }
+.work figcaption b { font-size: 22px; font-weight: 400; letter-spacing: -0.02em; color: var(--ink); }
 
 /* 6 series sliding sideways */
 .series { position: relative; height: 300vh; }
@@ -171,28 +190,30 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .track figure { margin: 0; width: min(48vh, 72vw); display: grid; gap: 12px; }
 .track img { width: 100%; height: auto; aspect-ratio: 1; display: block; background: var(--paper-2); box-shadow: 0 24px 60px #0000001f; }
 .track figcaption { display: flex; align-items: baseline; gap: 14px; }
-.track figcaption b { font: italic 700 44px/1 var(--f-logo); color: var(--brand); }
+.track figcaption b { font: 200 44px/1 var(--f-body); color: var(--brand); }
 .track figcaption span { color: var(--ink-2); }
 
 /* 7 features */
 .feat { padding-block: clamp(80px, 10vw, 150px); }
-.feat dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: clamp(32px, 5vw, 64px) 0 0; border-top: 1px solid var(--ink); }
-.feat dl div { padding: 26px 28px 30px 0; border-bottom: 1px solid var(--line); display: grid; gap: 10px; align-content: start; min-width: 0; }
-.feat dt { font: 400 26px/1.15 var(--f-display); display: flex; gap: 14px; align-items: baseline; }
-.feat dt small { font: 500 12px var(--f-mono); color: var(--accent); letter-spacing: .08em; }
-.feat dd { margin: 0; color: var(--ink-2); font-size: 15.5px; max-width: 30em; }
+/* each card is a live view of the same board, rendered close to the thing it describes */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(36px, 4vw, 56px) clamp(16px, 2vw, 28px); margin-top: clamp(32px, 5vw, 64px); }
+.card { margin: 0; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.card canvas { display: block; width: 100%; aspect-ratio: 4 / 3; background: linear-gradient(180deg, var(--sky), var(--paper-2)); }
+.card p { color: var(--ink-2); font-size: 15.5px; max-width: 30em; margin-top: 8px; }
 
 /* 8 red skyline */
 .finale { position: relative; background: var(--brand); color: var(--brand-ink); overflow: hidden; padding-top: clamp(80px, 12vw, 180px); }
 .finale .wrap { position: relative; z-index: 3; display: grid; gap: 28px; }
-.finale h2 { font: italic 700 clamp(56px, 10vw, 170px)/0.9 var(--f-logo); letter-spacing: -0.03em; max-width: 9em; }
+.finale h2 { font: 200 clamp(56px, 10vw, 170px)/0.95 var(--f-body); letter-spacing: -0.05em; max-width: 9em; }
 .finale p { max-width: 32em; font-size: 18px; opacity: .9; }
 .finale .btn { background: var(--brand-ink); color: var(--brand-deep); }
 .finale .btn:hover { background: #fff; }
-/* the name set edge to edge: the word is 4.26 font-sizes wide, so the size follows the width of its box */
+.finale .btn.ghost { background: transparent; color: var(--brand-ink); }
+.finale .btn.ghost:hover { background: #fff0c41f; }
+/* the name set edge to edge: the word is 4.42 font-sizes wide, so the size follows the width of its box */
 .mark { position: relative; z-index: 1; container-type: inline-size; margin-top: clamp(56px, 10vw, 150px);
   padding-left: var(--gut-l); padding-right: var(--gut-r); }
-.mark span { display: block; font: italic 700 calc(100cqw / 4.26)/0.8 var(--f-logo); letter-spacing: -0.035em; white-space: nowrap;
+.mark span { display: block; font: 300 calc(100cqw / 4.42)/0.8 var(--f-body); letter-spacing: -0.06em; white-space: nowrap;
   text-align: center; padding-bottom: 0.2em; }
 /* a little wider than the screen; on phones much wider, cropped at the sides.
    The planes stand on the bottom edge of the page and their towers rise in front of the name. */
@@ -211,18 +232,19 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .foot a:hover { opacity: 1; text-decoration: underline; }
 
 @media (max-width: 860px) {
-  .statement .wrap, .plates-head { grid-template-columns: minmax(0, 1fr); }
+  .statement .wrap > div { margin-left: 0; }
+  .plates-head { grid-template-columns: minmax(0, 1fr); }
   .facts { grid-template-columns: minmax(0, 1fr); }
   .hang { grid-template-columns: minmax(0, 1fr); }
   .work:nth-child(n) { grid-column: 1; margin-top: 0; }
-  .feat dl { grid-template-columns: minmax(0, 1fr); }
+  .cards { grid-template-columns: minmax(0, 1fr); }
   .rail { display: none; }
   .panel { padding: 16px 18px; }
   .panel dd { font-size: 20px; }
-  nav.links a:not(.cta):not(.lang) { display: none; }
+  nav.links a:not(.cta) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pano-hint i { animation: none; }
+  .pano-down svg, .pano-stage::after { animation: none; }
   .panel li { transition: none; }
 }
 </style>
@@ -230,163 +252,154 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 <body>
 <header class="top">
   <a class="brand" href="#top">Astymorph</a>
-  <nav class="links" aria-label="Sekcje">
-    <a href="#budowa">Makieta</a>
-    <a href="#obrazy">Obrazy</a>
-    <a href="#seria">Etapy</a>
-    <a class="lang" href="en.html" hreflang="en" lang="en">EN</a>
-    <a class="cta" href="#cechy">Edytor</a>
+  <nav class="links" aria-label="Sections">
+    <a href="#budowa">Model</a>
+    <a href="#obrazy">Paintings</a>
+    <a href="#seria">Stages</a>
+    <a class="cta" href="#access">Get early access</a>
   </nav>
 </header>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <main id="top">
-  <section class="pano" id="pano" aria-label="Malowana panorama Starego Miasta">
+  <section class="pano" id="pano" aria-label="Painted panorama of the Old Town">
     <div class="pano-stage" id="panoStage">
       <div class="pano-copy" id="panoCopy">
-        <span class="eyebrow">Kraków, Stare Miasto · 50.0617° N 19.9373° E</span>
-        <h1>Kraków zbudowany <em>z map</em> i pomiarów.</h1>
-        <p>Astymorph buduje świat do symulatorów jazdy z map ulic i pomiarów wysokości: teren, ulice, drzewa, budynki, torowiska i przystanki. Każdy element można potem edytować i wyeksportować do Unity, UE5 albo Godota.</p>
+        <h1>Build virtual worlds <em>from open data</em>.</h1>
+        <p>Mark an area on the map and Astymorph builds it for driving simulators from open street maps and elevation surveys: terrain, streets, trees, buildings, tram tracks and stops. You can edit every piece afterwards and export it to Unity, UE5 or Godot.</p>
+        <div class="actions"><a class="btn" href="#access">Get early access</a><a class="btn light" href="#budowa">See how it's built</a></div>
       </div>
       <div class="pano-layers" id="panoLayers"></div>
       <div class="pano-end" id="panoEnd">
-        <p>Budynki na tej panoramie pochodzą z siatki fotogrametrycznej. Każdy z pięciu planów przemalował model obrazu uruchomiony lokalnie.</p>
-        <a class="btn" href="#budowa">Zobacz, jak powstaje makieta</a>
+        <a class="btn" href="#budowa">See how the model is built</a>
       </div>
-      <div class="pano-hint" id="panoHint"><i></i>Przewiń</div>
+      <button class="pano-down" id="panoHint" type="button" aria-label="Scroll through the panorama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </section>
 
   <div class="ribbon" aria-hidden="true"><div id="ribbon">
-    <span>Teren</span><span>Ulice</span><span>Zieleń</span><span>Budynki</span><span>Torowiska</span><span>Przystanki</span>
-    <span>Teren</span><span>Ulice</span><span>Zieleń</span><span>Budynki</span><span>Torowiska</span><span>Przystanki</span>
+    <span>Terrain</span><span>Streets</span><span>Trees</span><span>Buildings</span><span>Tracks</span><span>Stops</span>
+    <span>Terrain</span><span>Streets</span><span>Trees</span><span>Buildings</span><span>Tracks</span><span>Stops</span>
   </div></div>
 
   <section class="statement" id="statement">
     <div class="wrap">
-      <span class="eyebrow">01 · Wycinek</span>
       <div>
-        <p class="big" id="bigText">Wycinek ma 1040 metrów boku i obejmuje Rynek, Planty i Pocztę Główną. Teren, ulice, drzewa i budynki powstały z map i pomiarów wysokości, bez ręcznego modelowania.</p>
+        <p class="big" id="bigText">The cut is 1040 metres across and covers the Main Square, the Planty park ring and the Main Post Office. Terrain, streets, trees and buildings came from maps and elevation surveys, with no hand modelling.</p>
         <div class="facts">
-          <div><b data-stat="side">1040 m</b><span>bok wycinka</span></div>
-          <div><b data-stat="buildings">1 299</b><span>budynków</span></div>
-          <div><b data-stat="trees">5 105</b><span>drzew</span></div>
+          <div><b data-stat="side">1040 m</b><span>across</span></div>
+          <div><b data-stat="buildings">1 299</b><span>buildings</span></div>
+          <div><b data-stat="trees">5 105</b><span>trees</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="build" id="budowa" aria-label="Makieta Starego Miasta">
+  <section class="build" id="budowa" aria-label="Model of the Old Town">
     <div class="stage" id="stage">
-      <canvas id="scene" aria-label="Makieta 3D Starego Miasta w Krakowie, składana podczas przewijania"></canvas>
+      <canvas id="scene" aria-label="3D model of Kraków's Old Town, assembled as you scroll"></canvas>
       <div class="labels" id="labels" aria-hidden="true"></div>
       <div class="hud">
-        <span class="mono" id="hudCoords">1040 × 1040 m</span>
-        <div class="north" aria-hidden="true"><svg viewBox="-23 -23 46 46"><g id="northArrow"><path d="M0 -18 L6 6 L0 2 L-6 6 Z" fill="currentColor"/><text x="0" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor">N</text></g></svg></div>
+        <span class="num" id="hudCoords">1040 × 1040 m</span>
+        <div class="north" aria-hidden="true"><svg viewBox="-23 -23 46 46"><g id="northArrow"><path d="M0 -18 L6 6 L0 2 L-6 6 Z" fill="currentColor"/><text x="0" y="20" text-anchor="middle" font-family="Manrope, sans-serif" font-size="10" fill="currentColor">N</text></g></svg></div>
       </div>
       <div class="panel" id="panel">
         <ol>
           <li data-i="1">
-            <div class="step"><span class="mono">01 / 05</span><span class="mono">TEREN</span></div>
-            <h3>Rzeźba terenu</h3>
-            <p>Teren pochodzi z modelu wysokości o oczku 1 m. Na początku wysokości są przesadzone, żeby było widać spadek ku Wiśle.</p>
-            <dl><div><dt>siatka</dt><dd>1 m</dd></div><div><dt>różnica wysokości</dt><dd data-stat="relief">–</dd></div><div><dt>bok</dt><dd data-stat="side">–</dd></div></dl>
+            <h3>The lie of the land</h3>
+            <p>The terrain comes from an elevation model with a 1 m grid. Heights start exaggerated so you can see the slope down to the Vistula.</p>
+            <dl><div><dt>grid</dt><dd>1 m</dd></div><div><dt>height range</dt><dd data-stat="relief">–</dd></div><div><dt>side</dt><dd data-stat="side">–</dd></div></dl>
           </li>
           <li data-i="2">
-            <div class="step"><span class="mono">02 / 05</span><span class="mono">ULICE</span></div>
-            <h3>Ulice, chodniki, place</h3>
-            <p>Każda nawierzchnia jest osobnym obiektem: jezdnia, chodnik, plac, ścieżka. Uliczki bez asfaltu dostają bruk.</p>
-            <dl><div><dt>powierzchni</dt><dd data-stat="surfaces">–</dd></div><div><dt>ulic</dt><dd data-stat="streets">–</dd></div><div><dt>przejść</dt><dd data-stat="crossings">–</dd></div></dl>
+            <h3>Streets, pavements, squares</h3>
+            <p>Every surface is a separate object: roadway, pavement, square, path. Lanes without asphalt get cobbles.</p>
+            <dl><div><dt>surfaces</dt><dd data-stat="surfaces">–</dd></div><div><dt>streets</dt><dd data-stat="streets">–</dd></div><div><dt>crossings</dt><dd data-stat="crossings">–</dd></div></dl>
           </li>
           <li data-i="3">
-            <div class="step"><span class="mono">03 / 05</span><span class="mono">ZIELEŃ</span></div>
-            <h3>Drzewa z pomiaru</h3>
-            <p>Każde drzewo ma zmierzoną wysokość i średnicę korony. Iglaste i liściaste dostają inne modele.</p>
-            <dl><div><dt>drzew</dt><dd data-stat="trees">–</dd></div><div><dt>typów drzew</dt><dd>9</dd></div></dl>
+            <h3>Measured trees</h3>
+            <p>Every tree has a measured height and crown width. Conifers and broadleaf trees get different models.</p>
+            <dl><div><dt>trees</dt><dd data-stat="trees">–</dd></div><div><dt>tree types</dt><dd>9</dd></div></dl>
           </li>
           <li data-i="4">
-            <div class="step"><span class="mono">04 / 05</span><span class="mono">BUDYNKI</span></div>
-            <h3>Wysokość z pomiaru</h3>
-            <p>Obrys budynku pochodzi z mapy, a wysokość gzymsu, dachu i wież z modelu pokrycia terenu. Kościoły dostają cegłę i wysokie okna.</p>
-            <dl><div><dt>budynków</dt><dd data-stat="buildings">–</dd></div><div><dt>najwyższa wieża</dt><dd data-stat="tallest">–</dd></div><div><dt>kondygnacja</dt><dd>3,2 m</dd></div></dl>
+            <h3>Measured heights</h3>
+            <p>The footprint comes from the map, and the heights of the eaves, roof and towers from a surface model. Churches get brick and tall windows.</p>
+            <dl><div><dt>buildings</dt><dd data-stat="buildings">–</dd></div><div><dt>tallest tower</dt><dd data-stat="tallest">–</dd></div><div><dt>storey</dt><dd>3.2 m</dd></div></dl>
           </li>
           <li data-i="5">
-            <div class="step"><span class="mono">05 / 05</span><span class="mono">DETALE</span></div>
-            <h3>Przejścia, tory, przystanki</h3>
-            <p>Na koniec dochodzą przejścia dla pieszych, torowiska ze słupami trakcji, wiaty przystanków i latarnie.</p>
-            <dl><div><dt>przystanków</dt><dd data-stat="stops">–</dd></div><div><dt>latarni</dt><dd data-stat="lamps">–</dd></div><div><dt>torów</dt><dd data-stat="track_km">–</dd></div></dl>
+            <h3>Crossings, tracks, stops</h3>
+            <p>Last come the pedestrian crossings, tram tracks with catenary poles, stop shelters and street lamps.</p>
+            <dl><div><dt>stops</dt><dd data-stat="stops">–</dd></div><div><dt>lamps</dt><dd data-stat="lamps">–</dd></div><div><dt>track</dt><dd data-stat="track_km">–</dd></div></dl>
           </li>
         </ol>
       </div>
-      <div class="rail" id="rail" aria-label="Etapy">
-        <button type="button" data-go="1">Teren<i></i></button>
-        <button type="button" data-go="2">Ulice<i></i></button>
-        <button type="button" data-go="3">Zieleń<i></i></button>
-        <button type="button" data-go="4">Budynki<i></i></button>
-        <button type="button" data-go="5">Detale<i></i></button>
-        <button type="button" data-go="6">Obróć<i></i></button>
+      <div class="rail" id="rail" aria-label="Stages">
+        <button type="button" data-go="1">Terrain<i></i></button>
+        <button type="button" data-go="2">Streets<i></i></button>
+        <button type="button" data-go="3">Trees<i></i></button>
+        <button type="button" data-go="4">Buildings<i></i></button>
+        <button type="button" data-go="5">Details<i></i></button>
+        <button type="button" data-go="6">Rotate<i></i></button>
       </div>
-      <div class="hint">Przeciągnij, żeby obrócić makietę.</div>
-      <div class="loader" id="loader"><div><span class="mono" id="loadTxt">Wczytuję makietę</span><span class="bar"><i id="loadBar"></i></span></div></div>
+      <div class="hint">Drag to rotate the model.</div>
+      <div class="loader" id="loader"><div><span class="num" id="loadTxt">Loading the model</span><span class="bar"><i id="loadBar"></i></span></div></div>
     </div>
   </section>
 
   <section class="plates" id="obrazy">
     <div class="wrap">
       <div class="plates-head">
-        <h2>Ta sama makieta, namalowana</h2>
-        <p>Każdy obraz zaczyna się od renderu makiety z budynkami z fotogrametrii. Potem model obrazu uruchomiony lokalnie przemalowuje go w stylu gwaszu. Ulice, dachy i wieże zostają na swoich miejscach.</p>
+        <h2>The same model, painted</h2>
+        <p>Each painting starts as a render of the model with photogrammetry buildings. An image model running locally then repaints it in gouache. Streets, roofs and towers stay where they are.</p>
       </div>
       <div class="hang">
         <figure class="work" data-speed="-0.08">
-          <div class="frame"><img src="assets/art/rynek.webp" width="1024" height="1024" loading="lazy" alt="Rynek Główny z Sukiennicami, wieżą ratuszową i kamienicami, namalowany w stylu gwaszu."></div>
-          <figcaption><b>Rynek Główny</b><span class="mono">I · ok. 280 m</span></figcaption>
+          <div class="frame"><img src="assets/art/rynek.webp" width="1024" height="1024" loading="lazy" alt="The Main Square with the Cloth Hall, the Town Hall Tower and tenement houses, painted in gouache."></div>
+          <figcaption><b>Main Square</b><span class="num">I · about 280 m</span></figcaption>
         </figure>
         <figure class="work" data-speed="0.12">
-          <div class="frame"><img src="assets/art/mariacki.webp" width="1024" height="1024" loading="lazy" alt="Kościół Mariacki wśród kamienic, namalowany w stylu gwaszu."></div>
-          <figcaption><b>Kościół Mariacki</b><span class="mono">II · ok. 150 m</span></figcaption>
+          <div class="frame"><img src="assets/art/mariacki.webp" width="1024" height="1024" loading="lazy" alt="St. Mary's Basilica among tenement houses, painted in gouache."></div>
+          <figcaption><b>St. Mary's Basilica</b><span class="num">II · about 150 m</span></figcaption>
         </figure>
         <figure class="work" data-speed="0.04">
-          <div class="frame"><img src="assets/art/poczta.webp" width="1024" height="1024" loading="lazy" alt="Okolice Poczty Głównej z torowiskiem i wiatami przystanków, namalowane w stylu gwaszu."></div>
-          <figcaption><b>Przy Poczcie Głównej</b><span class="mono">III · ok. 170 m</span></figcaption>
+          <div class="frame"><img src="assets/art/poczta.webp" width="1024" height="1024" loading="lazy" alt="The streets by the Main Post Office with tram tracks and stop shelters, painted in gouache."></div>
+          <figcaption><b>By the Main Post Office</b><span class="num">III · about 170 m</span></figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section class="series" id="seria" aria-label="Etapy budowy">
+  <section class="series" id="seria" aria-label="Build stages">
     <div class="series-stage">
-      <div class="wrap series-head"><span class="eyebrow">02 · Etapy</span><h2>Od terenu do miasta</h2></div>
+      <div class="wrap series-head"><h2>From terrain to city</h2></div>
       <div class="track" id="track">
-        <figure><img src="assets/art/etap-1.webp" width="1024" height="1024" loading="lazy" alt="Sam teren na płycie makiety."><figcaption><b>I</b><span>Teren</span></figcaption></figure>
-        <figure><img src="assets/art/etap-2.webp" width="1024" height="1024" loading="lazy" alt="Ulice, chodniki i place na terenie."><figcaption><b>II</b><span>Ulice i place</span></figcaption></figure>
-        <figure><img src="assets/art/etap-3.webp" width="1024" height="1024" loading="lazy" alt="Ulice, trawniki i drzewa Plant."><figcaption><b>III</b><span>Zieleń</span></figcaption></figure>
-        <figure><img src="assets/art/etap-4.webp" width="1024" height="1024" loading="lazy" alt="Makieta z budynkami."><figcaption><b>IV</b><span>Budynki</span></figcaption></figure>
-        <figure><img src="assets/art/hero.webp" width="1024" height="1024" loading="lazy" alt="Cały wycinek Starego Miasta."><figcaption><b>V</b><span>Cały wycinek</span></figcaption></figure>
+        <figure><img src="assets/art/etap-1.webp" width="1024" height="1024" loading="lazy" alt="Bare terrain on the model's base."><figcaption><b>I</b><span>Terrain</span></figcaption></figure>
+        <figure><img src="assets/art/etap-2.webp" width="1024" height="1024" loading="lazy" alt="Streets, pavements and squares on the terrain."><figcaption><b>II</b><span>Streets and squares</span></figcaption></figure>
+        <figure><img src="assets/art/etap-3.webp" width="1024" height="1024" loading="lazy" alt="Streets, lawns and the trees of the Planty ring."><figcaption><b>III</b><span>Trees</span></figcaption></figure>
+        <figure><img src="assets/art/etap-4.webp" width="1024" height="1024" loading="lazy" alt="The model with buildings."><figcaption><b>IV</b><span>Buildings</span></figcaption></figure>
+        <figure><img src="assets/art/hero.webp" width="1024" height="1024" loading="lazy" alt="The whole cut of the Old Town."><figcaption><b>V</b><span>The whole cut</span></figcaption></figure>
       </div>
     </div>
   </section>
 
   <section class="feat" id="cechy">
     <div class="wrap">
-      <span class="eyebrow">03 · Edytor</span>
-      <h2>Te same dane w edytorze</h2>
-      <dl>
-        <div><dt><small>01</small>Trzy poziomy</dt><dd>Teren, wiadukty i mosty (+1), tunele i przejścia (−1). Fizyka pojazdu liczy jazdę na właściwym poziomie.</dd></div>
-        <div><dt><small>02</small>Jezdnie z pasami</dt><dd>Przekroje pasów, linie, strzałki i przejścia. Pas autobusowy i rowerowy to osobne typy pasa.</dd></div>
-        <div><dt><small>03</small>Torowiska</dt><dd>Tory w jezdni i na podsypce, słupy trakcji, rozjazdy i łuki z krzywymi przejściowymi.</dd></div>
-        <div><dt><small>04</small>Zieleń z pomiaru</dt><dd>Drzewa z wysokością i koroną w dziewięciu typach, trawniki i żywopłoty.</dd></div>
-        <div><dt><small>05</small>Budynki</dt><dd>Bryły z obrysu i pomiaru wysokości, elewacje proceduralne z oknami, gzymsami i witrynami.</dd></div>
-        <div><dt><small>06</small>Eksport</dt><dd>Unity, UE5 i Godot. Kafle w układzie współrzędnych projektu, materiały rozdzielone na klasy.</dd></div>
-      </dl>
+      <h2>The same data in the editor</h2>
+      <div class="cards">
+        <figure class="card" data-view="levels"><canvas aria-hidden="true"></canvas><figcaption><h3>Three levels</h3><p>Ground, viaducts and bridges (+1), tunnels and underpasses (−1). Vehicle physics drives on the right level.</p></figcaption></figure>
+        <figure class="card" data-view="lanes"><canvas aria-hidden="true"></canvas><figcaption><h3>Roads with lanes</h3><p>Lane sections, lines, arrows and crossings. Bus and bike lanes are separate lane types.</p></figcaption></figure>
+        <figure class="card" data-view="tracks"><canvas aria-hidden="true"></canvas><figcaption><h3>Tram tracks</h3><p>Tracks in the roadway and on ballast, catenary poles, turnouts, and curves with transition spirals.</p></figcaption></figure>
+        <figure class="card" data-view="green"><canvas aria-hidden="true"></canvas><figcaption><h3>Measured greenery</h3><p>Trees with height and crown in nine types, lawns and hedges.</p></figcaption></figure>
+        <figure class="card" data-view="buildings"><canvas aria-hidden="true"></canvas><figcaption><h3>Buildings</h3><p>Masses from footprints and measured heights, procedural facades with windows, cornices and shopfronts.</p></figcaption></figure>
+        <figure class="card" data-view="export"><canvas aria-hidden="true"></canvas><figcaption><h3>Export</h3><p>Unity, UE5 and Godot. Tiles in the project's coordinate system, materials split into classes.</p></figcaption></figure>
+      </div>
     </div>
   </section>
 
-  <section class="finale" id="finale">
+  <section class="finale" id="access">
     <div class="wrap">
-      <h2>Kraków to pierwszy wycinek.</h2>
-      <p>Ten sam proces działa poza Krakowem. W programie zaznaczasz obszar na mapie, a Astymorph pobiera dane i buduje teren, ulice, zieleń i budynki.</p>
-      <a class="btn" href="#top">Wróć na górę</a>
+      <h2>Build your city next.</h2>
+      <p>Kraków is the first cut. Mark an area on the map, and Astymorph downloads the open data and builds the terrain, streets, greenery and buildings, ready to edit and export to your engine.</p>
+      <div class="actions"><a class="btn" href="mailto:lukaszryczko02@gmail.com?subject=Astymorph%20early%20access">Request early access</a><a class="btn ghost" href="#top">Back to top</a></div>
     </div>
     <div class="mark" aria-hidden="true"><span>Astymorph</span></div>
     <div class="skyline" id="skyline" aria-hidden="true">
@@ -395,8 +408,8 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
       <div class="sil" style="--c: #6a1a0c; --m: url(assets/pano/band2.webp)"></div>
     </div>
     <footer class="foot"><div class="wrap">
-      <span>© 2026 Astymorph · Makieta: Kraków, Stare Miasto</span>
-      <nav aria-label="Stopka"><a href="#budowa">Makieta</a><a href="#obrazy">Obrazy</a><a href="#cechy">Edytor</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
+      <span>© 2026 Astymorph · Model: Kraków, Old Town</span>
+      <nav aria-label="Footer"><a href="#budowa">Model</a><a href="#obrazy">Paintings</a><a href="#cechy">Editor</a><a href="#access">Early access</a></nav>
     </div></footer>
   </section>
 </main>
@@ -435,6 +448,23 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
   const ribbon = $("#ribbon"), track = $("#track"), series = $("#seria");
   const pano = $("#pano"), copy = $("#panoCopy"), end = $("#panoEnd"), hint = $("#panoHint"), bar = $("#progress");
 
+  // the arrow: shows after a moment, and on a click runs straight down past the skyline to the ribbon under the bar
+  setTimeout(() => hint.classList.add("ready"), 1400);
+  hint.addEventListener("click", () => {
+    const from = scrollY, to = pano.offsetTop + pano.offsetHeight - 64;
+    if (reduce) return scrollTo(0, to);
+    const t0 = performance.now(), dur = 1300, out = (t) => 1 - (1 - t) ** 3;
+    let stop = false;
+    const cancel = () => { stop = true; };
+    for (const ev of ["wheel", "touchstart", "keydown"]) addEventListener(ev, cancel, { once: true, passive: true });
+    (function step(now) {
+      if (stop) return;
+      const t = Math.min(1, (now - t0) / dur);
+      scrollTo(0, from + (to - from) * out(t));
+      if (t < 1) requestAnimationFrame(step);
+    })(t0);
+  });
+
   let mx = 0, my = 0, mxd = 0, myd = 0, pd = progressIn(pano), sd = progressIn(series);
   addEventListener("pointermove", (e) => {
     if (e.pointerType !== "mouse") return;
@@ -459,7 +489,9 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
     const e = ease(clamp01((pd - 0.55) / 0.3));
     end.style.opacity = e.toFixed(3);
     end.style.transform = `translateY(${((1 - e) * 20).toFixed(1)}px)`;
-    hint.style.opacity = pd > 0.04 ? 0 : 1;
+    hint.classList.toggle("gone", pd > 0.04);
+    // the bar comes in only once the headline is gone and the skyline is ending
+    document.documentElement.style.setProperty("--nav", ease(clamp01((pd - 0.6) / 0.35)).toFixed(3));
 
     // ribbon runs with the scroll
     if (!reduce) ribbon.style.transform = `translate3d(${(-(scrollY * 0.35) % (ribbon.scrollWidth / 2)).toFixed(1)}px, 0, 0)`;
@@ -502,9 +534,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = (s) => document.querySelector(s);
 const stageEl = $("#stage"), buildEl = $("#budowa"), canvas = $("#scene");
-const EN = document.documentElement.lang === "en";
-const fmt = (n) => new Intl.NumberFormat(EN ? "en-GB" : "pl-PL").format(n);
-const dec = (x) => (EN ? String(x) : String(x).replace(".", ","));
+const fmt = (n) => new Intl.NumberFormat("en-GB").format(n);
+const dec = String;
 
 // ---------------------------------------------------------------- data
 async function loadBin(url, onProgress) {
@@ -526,7 +557,7 @@ async function loadBin(url, onProgress) {
 function loadScript(src) {
   return new Promise((ok, fail) => {
     const el = document.createElement("script");
-    el.src = src; el.onload = ok; el.onerror = () => fail(new Error("brak " + src));
+    el.src = src; el.onload = ok; el.onerror = () => fail(new Error("missing " + src));
     document.head.appendChild(el);
   });
 }
@@ -581,7 +612,7 @@ let renderer;
 try {
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
 } catch (e) {
-  stageEl.insertAdjacentHTML("beforeend", '<div class="nogl"><p>Ta przeglądarka nie uruchomiła WebGL, więc makiety 3D nie da się tu pokazać. Obrazy w galerii niżej pokazują to samo miejsce.</p></div>');
+  stageEl.insertAdjacentHTML("beforeend", '<div class="nogl"><p>This browser could not start WebGL, so the 3D model cannot be shown here. The paintings further down show the same place.</p></div>');
   $("#loader").classList.add("done");
   throw e;
 }
@@ -959,13 +990,13 @@ scene.add(board);
 async function build() {
   const data = await getData((f, total) => {
     $("#loadBar").style.width = (f * 100).toFixed(1) + "%";
-    $("#loadTxt").textContent = `Wczytuję makietę ${dec((f * total / 1e6).toFixed(1))} / ${dec((total / 1e6).toFixed(1))} MB`;
+    $("#loadTxt").textContent = `Loading the model ${dec((f * total / 1e6).toFixed(1))} / ${dec((total / 1e6).toFixed(1))} MB`;
   });
   meta = data.meta;
   shared.uRelief.value = meta.stats.relief || 9;
   const t0 = performance.now();
   const geos = await buildCity(meta, data.buf, async (what) => {
-    $("#loadTxt").textContent = `Składam makietę`;
+    $("#loadTxt").textContent = `Assembling the model`;
     await new Promise((r) => setTimeout(r, 0));
   });
   let tris = 0;
@@ -1081,7 +1112,7 @@ controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
 let exploring = false, idle = 0;
 controls.addEventListener("start", () => { idle = 0; controls.autoRotate = false; });
 const coarse = matchMedia("(pointer: coarse)").matches;
-if (coarse) document.querySelector(".hint").textContent = "Makieta obraca się sama.";
+if (coarse) document.querySelector(".hint").textContent = "The model turns by itself.";
 function setExplore(on) {
   if (on === exploring) return;
   exploring = on;
@@ -1096,6 +1127,103 @@ function setExplore(on) {
   } else {
     controls.enabled = false; controls.autoRotate = false; camera.zoom = 1; camera.updateProjectionMatrix();
   }
+}
+
+// ---------------------------------------------------------------- editor cards: the finished board seen up close
+// The cards sit far below the board, so the one renderer serves them too: each view is drawn into the corner of
+// the board canvas and copied out to the card's own canvas straight away, before the browser shows the frame.
+const cards = [...document.querySelectorAll(".card")].map((el) => {
+  const cv = el.querySelector("canvas");
+  return { el, cv, ctx: cv.getContext("2d"), view: el.dataset.view, on: false, drawn: "" };
+});
+const seen = new IntersectionObserver((es) => es.forEach((e) => {
+  cards.find((c) => c.cv === e.target).on = e.isIntersecting;
+}), { rootMargin: "100px 0px" });
+cards.forEach((c) => seen.observe(c.cv));
+const cardCam = new THREE.PerspectiveCamera(28, 4 / 3, 2, 6000);
+// target (x, z on the board), height above the ground, azimuth and elevation (deg), distance, turn (deg/s) or sway (deg)
+const VIEWS = {
+  levels:    { at: [470, 470], up: 30, az: 45, el: 9, d: 380, sway: 16 },
+  lanes:     { at: [-337, -222], up: 0, az: 150, el: 58, d: 120, turn: 3 },
+  tracks:    { at: [440, 58], up: 0, az: 250, el: 48, d: 120, turn: -3 },
+  green:     { at: [170, -440], up: 4, az: 200, el: 26, d: 230, turn: 2.5 },
+  buildings: { at: [128, -66], up: 22, az: 210, el: 22, d: 300, turn: 4 },
+  export:    { at: [0, 0], up: 0, az: 30, el: 52, d: 2300, turn: 2 },
+};
+// the export view: the board cut into tiles of the project grid (every other one tinted), drawn over everything
+let tiles = null;
+function makeTiles() {
+  const H = HALF(), n = 8, s = (2 * H) / n, w = 1.6, p = [], f = [];
+  // the borders as strips 3.2 m wide: a plain line is one pixel thin and gets lost in the city
+  const quad = (out, x0, z0, x1, z1) => out.push(x0, 0, z0, x1, 0, z1, x1, 0, z0, x0, 0, z0, x0, 0, z1, x1, 0, z1);
+  for (let i = 0; i <= n; i++) {
+    const x = -H + s * i;
+    quad(p, x - w, -H - w, x + w, H + w); quad(p, -H - w, x - w, H + w, x + w);
+  }
+  for (let i = 0; i < n; i++) for (let j = (i % 2); j < n; j += 2) {
+    const x0 = -H + s * i, z0 = -H + s * j;
+    quad(f, x0, z0, x0 + s, z0 + s);
+  }
+  const red = { color: 0xf2401f, depthTest: false, transparent: true, side: THREE.DoubleSide };
+  const lg = new THREE.BufferGeometry(), fg = new THREE.BufferGeometry();
+  lg.setAttribute("position", new THREE.Float32BufferAttribute(p, 3));
+  fg.setAttribute("position", new THREE.Float32BufferAttribute(f, 3));
+  const g = new THREE.Group();
+  g.add(new THREE.Mesh(fg, new THREE.MeshBasicMaterial({ ...red, opacity: 0.26 })));
+  g.add(new THREE.Mesh(lg, new THREE.MeshBasicMaterial({ ...red, opacity: 0.95 })));
+  g.children.forEach((m) => (m.renderOrder = 10));
+  g.visible = false; g.position.y = 6;
+  scene.add(g);
+  return g;
+}
+const ray = new THREE.Raycaster();
+const groundAt = (x, z) => {
+  const t = layers.find((L) => L.name === "terrain");
+  ray.set(new THREE.Vector3(x, 400, z), new THREE.Vector3(0, -1, 0));
+  const hit = t && ray.intersectObject(t.mesh)[0];
+  return hit ? hit.point.y : 0;
+};
+for (const v of Object.values(VIEWS)) v.y = null;
+let cardShadows = true;
+function renderCards(t) {
+  const live = cards.filter((c) => c.on);
+  if (!live.length || !layers.length) { cardShadows = true; return; }
+  tiles ||= makeTiles();
+  const full = renderer.getSize(new THREE.Vector2()), pr = renderer.getPixelRatio();
+  // the finished board whatever the scroll left behind
+  const keep = layers.map((L) => L.uP.value), keepS = [shared.uExag.value, shared.uSink.value, shared.uHyp.value, shared.uContour.value];
+  layers.forEach((L) => (L.uP.value = 1));
+  shared.uExag.value = 1; shared.uSink.value = 0.3; shared.uHyp.value = shared.uContour.value = 0;
+  // the sun and the board stand still here: one shadow pass serves every card
+  renderer.shadowMap.autoUpdate = false;
+  renderer.shadowMap.needsUpdate = cardShadows;
+  cardShadows = false;
+  renderer.setScissorTest(true);
+  for (const c of live) {
+    const w = Math.min(c.cv.clientWidth, full.x), h = Math.min(c.cv.clientHeight, full.y);
+    const bw = Math.round(w * pr), bh = Math.round(h * pr);
+    if (!bw || !bh) continue;
+    if (reduce && c.drawn === bw + "x" + bh) continue;
+    if (c.cv.width !== bw || c.cv.height !== bh) { c.cv.width = bw; c.cv.height = bh; }
+    const v = VIEWS[c.view];
+    if (v.y === null) v.y = groundAt(v.at[0], v.at[1]) + v.up;
+    const az = THREE.MathUtils.degToRad(v.az + (reduce ? 0 : (v.turn || 0) * t + Math.sin(t * 0.22) * (v.sway || 0)));
+    const el = THREE.MathUtils.degToRad(v.el), target = new THREE.Vector3(v.at[0], v.y, v.at[1]);
+    cardCam.position.copy(target).add(new THREE.Vector3(Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)).multiplyScalar(v.d));
+    cardCam.aspect = w / h; cardCam.near = v.d / 20; cardCam.far = v.d + 3000;
+    cardCam.lookAt(target); cardCam.updateProjectionMatrix();
+    tiles.visible = c.view === "export";
+    renderer.setViewport(0, 0, w, h); renderer.setScissor(0, 0, w, h);
+    renderer.render(scene, cardCam);
+    c.ctx.clearRect(0, 0, bw, bh);
+    c.ctx.drawImage(renderer.domElement, 0, renderer.domElement.height - bh, bw, bh, 0, 0, bw, bh);
+    c.drawn = bw + "x" + bh;
+  }
+  tiles.visible = false;
+  renderer.setScissorTest(false); renderer.setViewport(0, 0, full.x, full.y);
+  renderer.shadowMap.autoUpdate = true;
+  layers.forEach((L, i) => (L.uP.value = keep[i]));
+  [shared.uExag.value, shared.uSink.value, shared.uHyp.value, shared.uContour.value] = keepS;
 }
 
 // ---------------------------------------------------------------- frame
@@ -1150,12 +1278,15 @@ function frame(now) {
       if (vis) L.el.style.transform = `translate(${((v.x + 1) / 2 * w).toFixed(1)}px, ${((1 - v.y) / 2 * h).toFixed(1)}px)`;
     }
   }
-  renderer.render(scene, camera);
+  // the board is drawn only while its stage is on screen; the cards below borrow the renderer
+  const sr = stageEl.getBoundingClientRect();
+  if (sr.bottom > 0 && sr.top < innerHeight) renderer.render(scene, camera);
+  renderCards(now / 1000);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-window.__dio = { scene, hemi, sun, layers, shared, renderer };
-build().catch((e) => { $("#loadTxt").textContent = "Nie udało się wczytać makiety (" + e.message + ")"; console.error(e); });
+window.__dio = { scene, hemi, sun, layers, shared, renderer, views: VIEWS };
+build().catch((e) => { $("#loadTxt").textContent = "Could not load the model (" + e.message + ")"; console.error(e); });
 
 </script>
 </body>
