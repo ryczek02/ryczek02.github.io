@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..700&family=Source+Serif+4:ital,opsz,wght@1,8..60,700&display=swap">
 <style>
 /* Layout: one long painted journey. The painted skyline opens the page full width and comes apart in depth
    as you scroll; a red ribbon, a statement read word by word, the board building itself, the plates hung at
@@ -32,6 +32,7 @@
   --emerald: #0f6b4e;
   --sun: #ffd84a;
   --f-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --f-logo: "Source Serif 4", "Georgia", serif;
   --gut-l: max(16px, env(safe-area-inset-left, 0px));
   --gut-r: max(16px, env(safe-area-inset-right, 0px));
 }
@@ -54,7 +55,7 @@ header.top { position: fixed; inset: 0 0 auto; top: env(safe-area-inset-top, 0px
 /* hidden over the hero, slides in as the skyline ends (--nav runs 0..1 with the scroll); tabbing into it shows it at once */
 header.top:focus-within { opacity: 1; transform: none; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 41; background: var(--bar); opacity: var(--nav, 1); }
-.brand { background: var(--brand); color: var(--brand-ink); text-decoration: none; font: 600 22px/1 var(--f-body); letter-spacing: -0.03em;
+.brand { background: var(--brand); color: var(--brand-ink); text-decoration: none; font: italic 700 25px/1 var(--f-logo); letter-spacing: -0.01em;
   display: flex; align-items: center; padding: 0 max(22px, env(safe-area-inset-left, 0px)); }
 .brand:focus-visible { outline: 3px solid var(--brand-ink); outline-offset: -6px; }
 nav.links { margin-left: auto; display: flex; align-items: center; gap: 28px; padding-left: 16px; }
@@ -210,10 +211,10 @@ nav.links .cta { opacity: 1; background: var(--bar-ink); color: var(--bar); padd
 .finale .btn:hover { background: #fff; }
 .finale .btn.ghost { background: transparent; color: var(--brand-ink); }
 .finale .btn.ghost:hover { background: #fff0c41f; }
-/* the name set edge to edge: the word is 4.42 font-sizes wide, so the size follows the width of its box */
+/* the name set edge to edge: the word is 4.26 font-sizes wide, so the size follows the width of its box */
 .mark { position: relative; z-index: 1; container-type: inline-size; margin-top: clamp(56px, 10vw, 150px);
   padding-left: var(--gut-l); padding-right: var(--gut-r); }
-.mark span { display: block; font: 300 calc(100cqw / 4.42)/0.8 var(--f-body); letter-spacing: -0.06em; white-space: nowrap;
+.mark span { display: block; font: italic 700 calc(100cqw / 4.26)/0.8 var(--f-logo); letter-spacing: -0.035em; white-space: nowrap;
   text-align: center; padding-bottom: 0.2em; }
 /* a little wider than the screen; on phones much wider, cropped at the sides.
    The planes stand on the bottom edge of the page and their towers rise in front of the name. */
